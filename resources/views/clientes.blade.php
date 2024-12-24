@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Administrar Clientes</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Bootstrap CSS v5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <style>
+        .status-circle {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .modal.fade .modal-dialog {
+            transition: transform 0.3s ease-out;
+            transform: translateY(-100%);
+        }
+        .modal.show .modal-dialog {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    @if(session("Correcto"))
+        <div class="alert alert-success">{{ session("Correcto") }}</div>
+    @endif
+
+    @if(session("Incorrecto"))
+        <div class="alert alert-danger">{{ session("Incorrecto") }}</div>
+    @endif
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Administrar Clientes</h1>
+        <script>
+      function res(){
+        return confirm("¿Estas seguro de eliminar este cliente?")
+      }
+
+        </script>
+        <div class="d-flex justify-content-between mb-3">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistrar">
+                Añadir Cliente
+            </button>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ordenar por
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="{{ route('cliente.ordenar', ['ordenarPor' => 'id']) }}">ID</a></li>
+                    <li><a class="dropdown-item" href="{{ route('cliente.ordenar', ['ordenarPor' => 'nombre']) }}">Nombre</a></li>
+                    <li><a class="dropdown-item" href="{{ route('cliente.ordenar', ['ordenarPor' => 'email']) }}">Correo Electrónico</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Nuevo Cliente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('clientes.create') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre Del Cliente</label>
+                                <input type="text" class="form-control" name="txtnombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="identificacion" class="form-label">Número de Identificación</label>
+                                <input type="number" class="form-control" name="txtidentificacion" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="number" class="form-control" name="txttelefono" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" name="txtemail" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Registrar Cliente</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col">Nombre Del Cliente</th>
+                    <th scope="col">Número de Identificación</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($clientes as $item)
+                    <tr>
+                        <td class="text-center">{{ $item->id }}</td>
+                        <td>{{ $item->nombre }}</td>
+                        <td>{{ $item->identificacion }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->telefono }}</td>
+                        <td class="text-center">
+                            <form action="{{ route('cambiar.EstadoCliente', $item->id) }}" method="POST" class="form-switch">
+                                @csrf
+                                <input type="hidden" name="estado" value="{{ $item->estado ? 0 : 1 }}">
+                                <input type="checkbox" class="form-check-input" id="estado{{ $item->id }}"
+                                       onchange="this.form.submit()" {{ $item->estado ? 'checked' : '' }}>
+                                <label class="form-check-label" for="estado{{ $item->id }}">
+                                    {{ $item->estado ? 'Activo' : 'Inactivo' }}
+                                </label>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <a href="" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalActualizar{{ $item->id }}">Editar</a>
+                            <a href="{{route('cliente.delete', $item->id)}}" class="btn btn-sm btn-danger" onclick="res()" >Eliminar</a>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="modalActualizar{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Datos Del Cliente</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('clientes.update', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="txtid" value="{{ $item->id }}">
+                                        <div class="mb-3">
+                                            <label for="nombre" class="form-label">Nombre Del Cliente</label>
+                                            <input type="text" class="form-control" name="txtnombre" value="{{ $item->nombre }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="identificacion" class="form-label">Número de Identificación</label>
+                                            <input type="number" class="form-control" name="txtidentificacion" value="{{ $item->identificacion }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="telefono" class="form-label">Teléfono</label>
+                                            <input type="number" class="form-control" name="txttelefono" value="{{ $item->telefono }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Correo Electrónico</label>
+                                            <input type="email" class="form-control" name="txtemail" value="{{ $item->email }}" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
