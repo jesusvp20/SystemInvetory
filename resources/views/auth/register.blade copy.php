@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Iniciar Sesión</title>
+    <title>Registrarse</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -18,24 +18,40 @@
         <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('register') }}" method="POST">
           @csrf
 
-          <label class="form-label" for="form3Example3">Correo Electrónico</label>
+          <label class="form-label" for="form3Example3">Nombre</label>
           <div class="form-outline mb-4">
-            <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="Ingrese su correo electronico" />
+            <input type="text" name="name" id="form3Example3" class="form-control form-control-lg" placeholder="Ingrese su nombre" />
           </div>
 
-          <label class="form-label" for="form3Example4">Contraseña</label>
+          <label class="form-label" for="form3Example4">Correo Electrónico</label>
+          <div class="form-outline mb-4">
+            <input type="email" name="email" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su correo electrónico" />
+          </div>
+
+          <label class="form-label" for="form3Example5">Contraseña</label>
           <div class="form-outline mb-3">
-            <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" autocomplete="current-password" />
+            <input type="password" name="password" id="form3Example5" class="form-control form-control-lg" placeholder="Ingrese su contraseña" />
           </div>
 
+          <label class="form-label" for="form3Example6">Confirmar Contraseña</label>
+          <div class="form-outline mb-3">
+            <input type="password" name="password_confirmation" id="form3Example6" class="form-control form-control-lg" placeholder="Confirme su contraseña" />
+          </div>
 
+          <label class="form-label" for="roleSelect">Tipo de Usuario</label>
+          <div class="form-outline mb-3">
+            <select name="role" id="roleSelect" class="form-control form-control-lg">
+              <option value="admin">Administrador</option>
+              <option value="user">Usuario</option>
+            </select>
+          </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar Sesión</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">No tienes cuenta? <a href="{{ route('register') }}" class="link-danger">Registrarse</a></p>
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Registrarse</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">¿Ya tienes cuenta? <a href="{{ route('login') }}" class="link-danger">Iniciar Sesión</a></p>
           </div>
         </form>
       </div>

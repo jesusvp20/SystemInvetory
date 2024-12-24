@@ -31,7 +31,13 @@
             <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" autocomplete="current-password" />
           </div>
 
-
+          <label class="form-label" for="roleSelect">Tipo de Usuario</label>
+          <div class="form-outline mb-3">
+            <select name="role" id="roleSelect" class="form-control form-control-lg">
+              <option value="admin">Administrador</option>
+              <option value="user">Usuario</option>
+            </select>
+          </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar Sesión</button>

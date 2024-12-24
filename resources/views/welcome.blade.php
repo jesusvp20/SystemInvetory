@@ -192,15 +192,16 @@
             <td>{{ \Carbon\Carbon::parse($item->fecha_actualizacion)->format('d-m-Y') }}</td>
 
             <td class="text-center">
-                <form action="{{ route('cambiar.status', $item->IdProducto) }}" method="POST" class="form-switch">
+                <form action="{{ route('Cambiar.status', $item->IdProducto) }}" method="POST" class="form-switch">
                     @csrf
                     <input type="hidden" name="estado" value="{{ $item->estado ? 0 : 1 }}">
-                    <input type="checkbox" class="form-check-input" id="estado{{ $item->IdProducto }}"
+                    <input type="checkbox" class="form-check-input" IdProducto="estado{{ $item->IdProducto }}"
                            onchange="this.form.submit()" {{ $item->estado ? 'checked' : '' }}>
                     <label class="form-check-label" for="estado{{ $item->IdProducto }}">
                         {{ $item->estado ? 'Activo' : 'Inactivo' }}
                     </label>
                 </form>
+
             </td>
             <td  class="text-center">
                 <div class="d-flex justify-content-around">

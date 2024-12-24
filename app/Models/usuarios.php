@@ -14,8 +14,9 @@ class usuarios extends Model
     protected $table ='usuarios';
     protected $fillable = [
         'name',
-        'email',
         'password',
+        'create_at',
+        'tipo'
     ];
 
     public function getAuthPassword(){

@@ -105,19 +105,21 @@ public function ordenar(Request $request)
     ]);
 }
 
-public function cambiarStatus($IdProducto) {
-    $sql = DB::table('producto')->where('IdProducto', operator: $IdProducto)->first();
+public function cambiarStatus($id)
+{
+    $producto = DB::table('producto')->where('IdProducto', $id)->first();
 
-    if ($sql) {
-        $nuevoEstado = $sql->estado == 1 ? 0 : 1;
+    if ($producto) {
+        $nuevoEstado = $producto->estado == 1 ? 0 : 1;
 
-        DB::table('producto')->where('IdProducto', $IdProducto)->update(['estado' => $nuevoEstado]);
+        DB::table('producto')->where('IdProducto', $id)->update(['estado' => $nuevoEstado]);
 
         return back()->with('success', 'Estado cambiado exitosamente');
     }
 
-    return back()->with('error', 'el cambio del producto no se cambio');
+    return back()->with('error', 'No se pudo cambiar el estado del producto');
 }
+
 
 
 }

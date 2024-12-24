@@ -10,7 +10,7 @@
 
 <body>
     <div class="container mt-4">
-        <h1 class="mb-4">Productos Activos en Stock</h1>
+        <h1 class="mb-4">Productos en Stock</h1>
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
