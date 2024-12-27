@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
     <style>
         .card {
             margin: 10px 0;
@@ -38,13 +40,18 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('ProductosActivos.index')}}">Ver productos activos</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('ProductosActivos.index')}}"><i class="bi bi-file-earmark-spreadsheet"></i> Ver productos activos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ProveedoresActivos.index')}}">Ver Proveedores activos</a>
+                            <a class="nav-link" href="{{route('ProveedoresActivos.index')}}"><i class="bi bi-person-vcard-fill"></i> Ver Proveedores activos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Ver clientes activos</a>
+                            <a class="nav-link" href="{{route('clientesActivos.index')}}"><i class="bi bi-person-check-fill"></i>Ver clientes activos</a>
+                        </li>
+                        <li class="nav-ite">
+                            <a href="{{route('ventasHistorial.index')}}" class="nav-link">
+                                <i class="bi bi-clock-history"></i>   Ver historial de compras
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -116,7 +123,7 @@
                         <h5 class="card-title">Ventas</h5>
                         <p class="card-text">Gestionar ventas.</p>
                         <p class="card-text" ><strong> Total de ventas: {{$totalVentas}}</strong> </p>
-                        <a href="{{ route('Ventas.index') }}" class="btn btn-primary">a Ventas</a>
+                        <a href="{{ route('Ventas.index') }}" class="btn btn-primary">Ir a Ventas</a>
                     </div>
                 </div>
             </div>

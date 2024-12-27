@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-class ReporteController extends Controller
-{
 
+class ventasHistorialController extends Controller
+{
     public function index()
     {
         $dato = DB::select("
@@ -22,10 +21,7 @@ class ReporteController extends Controller
     $productos = DB::select("SELECT IdProducto, nombre, precio FROM producto");
     $clientes = DB::select("SELECT id, nombre FROM clientes");
 
-        return view("reporteview")->with("dato", $dato)->with("productos", $productos)->with("clientes", $clientes);
+        return view("ventasHistorial")->with("dato", $dato)->with("productos", $productos)->with("clientes", $clientes);
     }
-
-
-
 }
 

@@ -1,82 +1,98 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Subir Archivo</title>
+    <title>Reporte de Ventas</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg" style="background-color: black;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
+            </button>
+            <h1 class="text-white fw-bold">Historial de Ventas</h1>
+            <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title text-dark" id="offcanvasDarkNavbarLabel">Opciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{{ route('dashboard.index') }}">
+                                <i class="bi bi-house-fill"></i> Ir al Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-4">
-        <h1 class="mb-4">Productos en Stock</h1>
+        <h1 class="mb-4">reporte de Ventas</h1>
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Cantidad Disponible</th>
-                    <th scope="col">Categoría</th>
-                    <th scope="col">Proveedor</th>
-                    <th scope="col">Código del Producto</th>
-                    <th scope="col">Fecha de Creación</th>
-                    <th scope="col">Fecha de Actualización</th>
+                    <th>#</th>
+                    <th>Fecha de Venta</th>
+                    <th>Total</th>
+                    <th>Cliente</th>
+                    <th>Productos</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($producto as $item)
+                @foreach ($dato as $venta)
                 <tr>
-                    <td>{{ $item->IdProducto }}</td>
-                    <td>{{ $item->nombre }}</td>
-                    <td>{{ $item->descripcion }}</td>
-                    <td>{{ $item->precio }}</td>
-                    <td>{{ $item->cantidad_disponible }}</td>
-                    <td>{{ $item->categoria }}</td>
-                    <td>{{ $item->proveedor }}</td>
-                    <td>{{ $item->codigoProducto }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->fecha_creacion)->format('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->fecha_actualizacion)->format('d-m-Y') }}</td>
+                    <td>{{ $venta->id_venta }}</td>
+                    <td>{{ \Carbon\Carbon::parse($venta->fecha_venta)->format('d-m-Y') }}</td>
+                    <td>{{ $venta->total }}</td>
+                    <td>{{ $venta->cliente_nombre }}</td>
+                    <td>{{ $venta->productos_nombres }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
 
-        <h3 class="mt-5">Cantidad de Productos Disponibles</h3>
-        <canvas id="productosChart" width="400" height="200"></canvas>
+        <h3 class="mt-5">Ventas por Producto</h3>
+        <canvas id="ventasChart" width="400" height="200"></canvas>
     </div>
 
     <script>
-        // Obtener los datos de PHP
-        var productos = @json($producto);
+        // Datos de ventas y productos enviados desde el controlador
+        var productos = @json($productos);
 
-        var nombres = productos.map(function(producto) {
+        // Extraer nombres y precios de productos
+        var nombresProductos = productos.map(function(producto) {
             return producto.nombre;
         });
-        var cantidades = productos.map(function(producto) {
-            return producto.cantidad_disponible;
+        var preciosProductos = productos.map(function(producto) {
+            return producto.precio;
         });
 
-        // Configurar el gráfico
-        var ctx = document.getElementById('productosChart').getContext('2d');
-        var productosChart = new Chart(ctx, {
-            type: 'bar', // Tipo de gráfico: 'bar' para barras
+        // Crear el gráfico con Chart.js
+        var ctx = document.getElementById('ventasChart').getContext('2d');
+        var ventasChart = new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: nombres, // Etiquetas en el eje X
+                labels: nombresProductos,
                 datasets: [{
-                    label: 'Cantidad Disponible',
-                    data: cantidades, // Datos del eje Y
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de las barras
-                    borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
+                    label: 'Precios de Productos',
+                    data: preciosProductos,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
                     borderWidth: 1
                 }]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true // Comenzar el eje Y desde cero
+                        beginAtZero: true
                     }
                 }
             }

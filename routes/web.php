@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\ventasHistorialController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminProveedoresController;
 use App\Http\Controllers\Auth\LoginController;
@@ -80,4 +81,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/ReporteView', [ReporteController::class, 'index'])->name('reporte.index');
         //ver ventas
         Route::get('/ventas', [VentasController::class, 'index'])->name('Ventas.index');
-});
+
+        // Registrar venta
+        Route::post('/RegistrarVenta', [VentasController::class, 'registrarCompra'])->name('registrarCompra.create');
+        //eliminar venta
+        Route::get('ventas/delete/{id}', [VentasController::class, 'deleteShop'])->name('ventas.delete');
+         //actualizar venta
+         Route::put('ventas/update', [VentasController::class, 'update'])->name('ventas.update');
+        //historial de busqueda
+        route::get('/ventasHistorial',[ventasHistorialController::class, 'index'])->name('ventasHistorial.index');
+        });

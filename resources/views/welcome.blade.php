@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Tabla Moderna</title>
+    <title>Gestionar inventario</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -64,8 +64,35 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <nav class="navbar navbar-expand-lg" style="background-color: black;">
+        <div class="container-fluid">
+            <!-- Botón para abrir el menú lateral -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
+            </button>
 
+            <h1 class="text-white fw-bold">Control De inventario</h1>
+
+            <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title text-dark" id="offcanvasDarkNavbarLabel">Opciones de Inventario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <!-- Botón para ir al Dashboard -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('dashboard.index') }}">
+                                <i class="bi bi-house-fill"></i> Ir al Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
         <h1 class="text-center p-3">Control De Productos</h1>
         @if(session("Correcto"))
         <div class="alert alert-success">{{session("Correcto")}} </div>
@@ -150,7 +177,7 @@
 <table class="table table-hover table-modern">
     <thead>
         <tr>
-            <th scope="col">IdProducto</th>
+            <th scope="col">Numero Del Producto</th>
             <th scope="col">Nombre Del Producto</th>
             <th scope="col">Descripción</th>
             <th scope="col">Precio</th>
@@ -260,7 +287,7 @@
 
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Código Del Producto</label>
-                                <input type="text" class="form-control" name="txtcodigoProducto" value="{{ $item->codigoProducto }}" / readonly>
+                                <input type="text" class="form-control" name="txtcodigoProducto" value="{{ $item->codigoProducto }}" readonly>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
