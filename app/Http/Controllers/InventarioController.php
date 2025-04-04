@@ -94,10 +94,8 @@ public function ordenar(Request $request)
     $campo = $request->input('campo', 'IdProducto');
     $direccion = $request->input('direccion', 'asc');
 
-    // Construir la consulta SQL
     $productosOrdenados = DB::table('producto')->orderBy($campo, $direccion)->get();
 
-    // Retornar la vista con los datos ordenados y el estado de ordenación
     return view('welcome')->with([
         'datos' => $productosOrdenados,
         'campo' => $campo,

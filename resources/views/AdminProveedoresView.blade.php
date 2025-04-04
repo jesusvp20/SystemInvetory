@@ -14,7 +14,6 @@
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: black;">
         <div class="container-fluid">
-            <!-- Botón para abrir el menú lateral -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
@@ -28,7 +27,6 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <!-- Botón para ir al Dashboard -->
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('dashboard.index') }}">
                                 <i class="bi bi-house-fill"></i> Ir al Dashboard
