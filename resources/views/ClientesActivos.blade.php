@@ -37,7 +37,6 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <!-- Botón para ir al Dashboard -->
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('dashboard.index') }}">
                                 <i class="bi bi-house-fill"></i> Ir al Dashboard

@@ -63,14 +63,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('inventario.create') }}" method="POST">
+                        <form action="{{ route('AdminProveedores.create') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="nombre_producto" class="form-label">Nombre Del Proveedor</label>
                                 <input type="text" class="form-control" id="nombtr" name="txtnombre" required>
                             </div>
                             <div class="mb-3">
-                                <label for="descripcion" class="form-label">Descripción</label>
+                                <label for="descripcion" class="form-label">direccion</label>
                                 <input type="text" class="form-control" id="direccion" name="txtdireccion" required>
                             </div>
                             <div class="mb-3">
