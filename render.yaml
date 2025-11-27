@@ -1,0 +1,40 @@
+# render.yaml - Configuración para Render
+services:
+  - type: web
+    name: sistema-inventario
+    env: docker
+    plan: free
+    envVars:
+      - key: APP_NAME
+        value: "Sistema Inventario"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        value: https://sistema-inventario.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: inventariodb
+          property: host
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        fromDatabase:
+          name: inventariodb
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: inventariodb
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: inventariodb
+          property: password
+
+databases:
+  - name: inventariodb
+    plan: free
+
