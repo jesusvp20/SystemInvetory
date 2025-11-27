@@ -43,14 +43,14 @@ class VentasController extends Controller
         // Validaciones según esquema SQL
         $request->validate([
             'cliente' => 'required|integer|exists:clientes,id',
-            'total' => 'required|numeric|min:0|max:10000000',
+            'total' => 'required|numeric|min:0|max:999999999999',
             'productos' => 'required|array|min:1',
             'cantidades' => 'required|array|min:1',
         ], [
             'cliente.required' => 'Debe seleccionar un cliente',
             'cliente.exists' => 'El cliente seleccionado no existe',
             'total.required' => 'El total es requerido',
-            'total.max' => 'El total no puede exceder 10.000.000',
+            'total.max' => 'El total no puede exceder 999.999.999.999',
             'productos.required' => 'Debe seleccionar al menos un producto',
             'cantidades.required' => 'Debe especificar las cantidades',
         ]);
@@ -118,12 +118,12 @@ class VentasController extends Controller
         $request->validate([
             'txtcliente' => 'required|integer|exists:clientes,id',
             'txtfecha_venta' => 'required|date',
-            'txttotal' => 'required|numeric|min:0|max:10000000',
+            'txttotal' => 'required|numeric|min:0|max:999999999999',
         ], [
             'txtcliente.required' => 'Debe seleccionar un cliente',
             'txtfecha_venta.required' => 'La fecha es requerida',
             'txttotal.required' => 'El total es requerido',
-            'txttotal.max' => 'El total no puede exceder 10.000.000',
+            'txttotal.max' => 'El total no puede exceder 999.999.999.999',
         ]);
 
         try {

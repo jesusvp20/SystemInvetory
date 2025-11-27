@@ -33,7 +33,7 @@ class InventarioController extends Controller
     $request->validate([
         'txtname' => 'required|string|max:250',
         'txtdescripcion' => 'required|string',
-        'txtprecio' => 'required|numeric|min:0|max:10000000',
+        'txtprecio' => 'required|numeric|min:0|max:999999999999',
         'txtcantidad_disponible' => 'required|integer|min:0|max:2147483647',
         'txtcategoria' => 'required|string|max:50',
         'txtproveedor' => 'required',
@@ -86,7 +86,7 @@ class InventarioController extends Controller
     $request->validate([
         'txtname' => 'required|string|max:250',
         'txtdescripcion' => 'required|string',
-        'txtprecio' => 'required|numeric|min:0|max:10000000',
+        'txtprecio' => 'required|numeric|min:0|max:999999999999',
         'txtcantidad_disponible' => 'required|integer|min:0|max:2147483647',
         'txtcategoria' => 'required|string|max:50',
         'txtproveedor' => 'required',

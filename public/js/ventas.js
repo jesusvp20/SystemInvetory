@@ -40,7 +40,7 @@ function validarFormularioVenta(form) {
         if (isNaN(valorTotal) || valorTotal <= 0) {
             mostrarError(total, 'El total debe ser mayor a 0');
             valido = false;
-    } else if (valorTotal > 10000000) {
+    } else if (valorTotal > 999999999999) {
         mostrarError(total, 'El total no puede exceder 10.000.000');
         valido = false;
     }
