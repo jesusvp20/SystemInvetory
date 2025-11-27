@@ -63,12 +63,13 @@ class VentasController extends Controller
             $total = str_replace(',', '.', $total);
             
             // Insertar venta con user_id
+            // Segundo parámetro 'id_venta' indica el nombre de la columna ID en PostgreSQL
             $ventaId = DB::table('ventas')->insertGetId([
                 'id_cliente'  => $request->cliente,
                 'fecha_venta' => now(),
                 'total'       => $total,
                 'user_id'     => $userId,
-            ]);
+            ], 'id_venta');
 
             // Insertar detalles
             $productos  = $request->productos;
