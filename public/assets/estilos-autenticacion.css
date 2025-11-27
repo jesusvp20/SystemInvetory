@@ -17,9 +17,32 @@
     height: calc(100% - 73px);
 }
 
-@media (max-width: 450px) {
+@media (max-width: 767.98px) {
     .h-custom {
-        height: 100%;
+        height: auto;
+        min-height: 100%;
+    }
+    
+    /* Hacer el formulario de registro/login más compacto en móviles */
+    .form-control-lg {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    /* Botón ancho completo en móviles */
+    .btn-lg {
+        width: 100%;
+        padding: 0.75rem 1rem !important;
+    }
+    
+    /* Ajustar espaciado en móviles */
+    .mb-4 {
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Centrar texto en móviles */
+    .min-vh-100 {
+        padding-top: 1rem;
     }
 }
 
