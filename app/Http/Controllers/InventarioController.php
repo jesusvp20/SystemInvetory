@@ -29,6 +29,11 @@ class InventarioController extends Controller
     }
 
   public function create(Request $request){
+    // Limpiar formato de precio ANTES de validar (quitar puntos de miles)
+    $precioLimpio = str_replace('.', '', $request->txtprecio);
+    $precioLimpio = str_replace(',', '.', $precioLimpio);
+    $request->merge(['txtprecio' => $precioLimpio]);
+    
     // Validaciones según esquema SQL
     $request->validate([
         'txtname' => 'required|string|max:250',
@@ -58,15 +63,11 @@ class InventarioController extends Controller
 
     $userId = Auth::id();
     
-    // Limpiar formato de precio (quitar puntos de miles)
-    $precio = str_replace('.', '', $request['txtprecio']);
-    $precio = str_replace(',', '.', $precio);
-    
     $sql = DB::insert("INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible, categoria, proveedor, \"codigoProducto\", fecha_creacion, fecha_actualizacion, user_id)
      VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)", [
         $request['txtname'],
         $request['txtdescripcion'],
-        $precio,
+        $request['txtprecio'],
         $request['txtcantidad_disponible'],
         $request['txtcategoria'],
         $request['txtproveedor'],
@@ -82,6 +83,11 @@ class InventarioController extends Controller
   }
 
   public function update(Request $request){
+    // Limpiar formato de precio ANTES de validar
+    $precioLimpio = str_replace('.', '', $request->txtprecio);
+    $precioLimpio = str_replace(',', '.', $precioLimpio);
+    $request->merge(['txtprecio' => $precioLimpio]);
+    
     // Validaciones según esquema SQL
     $request->validate([
         'txtname' => 'required|string|max:250',
@@ -102,10 +108,6 @@ class InventarioController extends Controller
 
     $userId = Auth::id();
     
-    // Limpiar formato de precio
-    $precio = str_replace('.', '', $request['txtprecio']);
-    $precio = str_replace(',', '.', $precio);
-    
     $sql = DB::update('UPDATE producto SET
         nombre = ?,
         descripcion = ?,
@@ -118,7 +120,7 @@ class InventarioController extends Controller
         [
             $request['txtname'],
             $request['txtdescripcion'],
-            $precio,
+            $request['txtprecio'],
             $request['txtproveedor'],
             $request['txtcantidad_disponible'],
             $request['txtcategoria'],
