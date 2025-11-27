@@ -87,7 +87,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="precio" class="form-label">Precio</label>
-                                <input type="number" step="0.01" class="form-control" id="precio" name="txtprecio" required>
+                                <input type="text" class="form-control" id="precio" name="txtprecio" placeholder="Ej: 1.500.000" required>
                             </div>
                             <div class="mb-3">
                                 <label for="cantidad_disponible" class="form-label">Cantidad Disponible</label>
@@ -230,7 +230,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Precio</label>
-                                <input type="number" step="0.01" class="form-control" name="txtprecio" value="{{ $item->precio }}" />
+                                <input type="text" class="form-control" name="txtprecio" value="{{ number_format($item->precio, 0, ',', '.') }}" />
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Cantidad Disponible</label>

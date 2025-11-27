@@ -82,7 +82,7 @@
                 <input type="number" name="cantidad[]" class="form-control" min="1" required>
 
                 <label for="precio_unitario" class="form-label mt-2">Precio Unitario</label>
-                <input type="number" step="0.01" name="precio_unitario[]" class="form-control" required>
+                <input type="text" name="precio_unitario[]" class="form-control" placeholder="Ej: 1.500.000" required>
             </div>
         </div>
 
