@@ -3,40 +3,109 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
-use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controlador de Inventario
+ * 
+ * Fecha de modificación: 2024-12-19
+ * Cambio: Agregado filtro por user_id para aislamiento de datos
+ * Por qué: Cada usuario debe ver solo sus propios productos
+ */
 class InventarioController extends Controller
 {
     public function index(){
-      $datos =DB::select("select * from producto");
-      $proveedores = DB:: select("Select id, nombre FROM proveedores");
-      return view("welcome")->with("datos", $datos)->with("proveedores",$proveedores);
+      // Filtrar productos por el usuario autenticado
+      $userId = Auth::id();
+      $datos = DB::select("
+          SELECT p.*, pr.nombre AS proveedor_nombre 
+          FROM producto p 
+          LEFT JOIN proveedores pr ON p.proveedor = pr.id 
+          WHERE p.user_id = ?
+      ", [$userId]);
+      $proveedores = DB::select("SELECT id, nombre FROM proveedores WHERE user_id = ?", [$userId]);
+      return view("welcome")->with("datos", $datos)->with("proveedores", $proveedores);
     }
 
   public function create(Request $request){
+    // Validaciones según esquema SQL
+    $request->validate([
+        'txtname' => 'required|string|max:250',
+        'txtdescripcion' => 'required|string',
+        'txtprecio' => 'required|numeric|min:0|max:10000000',
+        'txtcantidad_disponible' => 'required|integer|min:0|max:2147483647',
+        'txtcategoria' => 'required|string|max:50',
+        'txtproveedor' => 'required',
+        'txtcodigoProducto' => 'required|string|max:50|unique:producto,codigoProducto',
+    ], [
+        'txtname.required' => 'El nombre del producto es requerido',
+        'txtname.max' => 'El nombre no puede exceder 250 caracteres',
+        'txtdescripcion.required' => 'La descripción es requerida',
+        'txtprecio.required' => 'El precio es requerido',
+        'txtprecio.numeric' => 'El precio debe ser un número válido',
+        'txtprecio.max' => 'El precio no puede exceder 10.000.000',
+        'txtcantidad_disponible.required' => 'La cantidad es requerida',
+        'txtcantidad_disponible.integer' => 'La cantidad debe ser un número entero',
+        'txtcantidad_disponible.min' => 'La cantidad no puede ser negativa',
+        'txtcategoria.required' => 'La categoría es requerida',
+        'txtcategoria.max' => 'La categoría no puede exceder 50 caracteres',
+        'txtproveedor.required' => 'Debe seleccionar un proveedor',
+        'txtcodigoProducto.required' => 'El código del producto es requerido',
+        'txtcodigoProducto.max' => 'El código no puede exceder 50 caracteres',
+        'txtcodigoProducto.unique' => 'Este código de producto ya existe',
+    ]);
 
-    $sql = DB::insert("INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible,categoria,proveedor ,codigoProducto, fecha_creacion, fecha_actualizacion)
-     VALUES (?, ?, ?, ? ,?,?, ?, NOW(), NOW())", [
+    $userId = Auth::id();
+    
+    // Limpiar formato de precio (quitar puntos de miles)
+    $precio = str_replace('.', '', $request['txtprecio']);
+    $precio = str_replace(',', '.', $precio);
+    
+    $sql = DB::insert("INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible, categoria, proveedor, codigoProducto, fecha_creacion, fecha_actualizacion, user_id)
+     VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)", [
         $request['txtname'],
         $request['txtdescripcion'],
-        $request['txtprecio'],
+        $precio,
         $request['txtcantidad_disponible'],
         $request['txtcategoria'],
         $request['txtproveedor'],
         $request['txtcodigoProducto'],
-
+        $userId,
     ]);
 
-if ($sql ==true){
-    return back()->with("Correcto","Producto registrado correctamente");
-}else{
-    return back()->with("Incorrecto ","Error al registrar");
-}
+    if ($sql == true){
+        return back()->with("Correcto","Producto registrado correctamente");
+    }else{
+        return back()->with("Incorrecto","Error al registrar");
+    }
   }
 
   public function update(Request $request){
+    // Validaciones según esquema SQL
+    $request->validate([
+        'txtname' => 'required|string|max:250',
+        'txtdescripcion' => 'required|string',
+        'txtprecio' => 'required|numeric|min:0|max:10000000',
+        'txtcantidad_disponible' => 'required|integer|min:0|max:2147483647',
+        'txtcategoria' => 'required|string|max:50',
+        'txtproveedor' => 'required',
+    ], [
+        'txtname.required' => 'El nombre del producto es requerido',
+        'txtname.max' => 'El nombre no puede exceder 250 caracteres',
+        'txtprecio.required' => 'El precio es requerido',
+        'txtprecio.max' => 'El precio no puede exceder 10.000.000',
+        'txtcantidad_disponible.required' => 'La cantidad es requerida',
+        'txtcantidad_disponible.integer' => 'La cantidad debe ser un número entero',
+        'txtcategoria.max' => 'La categoría no puede exceder 50 caracteres',
+    ]);
+
+    $userId = Auth::id();
+    
+    // Limpiar formato de precio
+    $precio = str_replace('.', '', $request['txtprecio']);
+    $precio = str_replace(',', '.', $precio);
+    
     $sql = DB::update("UPDATE producto SET
         nombre = ?,
         descripcion = ?,
@@ -45,15 +114,16 @@ if ($sql ==true){
         cantidad_disponible = ?,
         categoria = ?,
         fecha_actualizacion = NOW()
-        WHERE IdProducto = ?",
+        WHERE IdProducto = ? AND user_id = ?",
         [
             $request['txtname'],
             $request['txtdescripcion'],
-            $request['txtprecio'],
+            $precio,
             $request['txtproveedor'],
             $request['txtcantidad_disponible'],
             $request['txtcategoria'],
-            $request['txtIdProducto']
+            $request['txtIdProducto'],
+            $userId
         ]);
 
     if ($sql == true){
@@ -64,8 +134,10 @@ if ($sql ==true){
 }
 
 public function delete($id){
-    $sql = DB::delete("DELETE FROM producto WHERE IdProducto = ?", [$id]);
-
+    $userId = Auth::id();
+    
+    // Solo eliminar si el producto pertenece al usuario
+    $sql = DB::delete("DELETE FROM producto WHERE IdProducto = ? AND user_id = ?", [$id, $userId]);
 
    if ($sql == true){
     return back()->with("Correcto","Producto ha sido eliminado correctamente");
@@ -76,28 +148,44 @@ public function delete($id){
 
 public function search(Request $request){
     $query = $request->input('buscar');
+    $userId = Auth::id();
 
-
-    $productos = DB::select("SELECT * FROM producto WHERE codigoProducto LIKE ? OR nombre LIKE ?", [
+    // Buscar solo en productos del usuario con nombre del proveedor
+    $productos = DB::select("
+        SELECT p.*, pr.nombre AS proveedor_nombre 
+        FROM producto p 
+        LEFT JOIN proveedores pr ON p.proveedor = pr.id 
+        WHERE p.user_id = ? AND (p.codigoProducto LIKE ? OR p.nombre LIKE ?)
+    ", [
+        $userId,
         '%' . $query . '%',
         '%' . $query . '%'
     ]);
+    
+    $proveedores = DB::select("SELECT id, nombre FROM proveedores WHERE user_id = ?", [$userId]);
 
-
-    return view('welcome')->with('datos', $productos);
+    return view('welcome')->with('datos', $productos)->with('proveedores', $proveedores);
 }
-
-
 
 public function ordenar(Request $request)
 {
     $campo = $request->input('campo', 'IdProducto');
     $direccion = $request->input('direccion', 'asc');
+    $userId = Auth::id();
 
-    $productosOrdenados = DB::table('producto')->orderBy($campo, $direccion)->get();
+    // Ordenar solo productos del usuario con nombre del proveedor
+    $productosOrdenados = DB::table('producto as p')
+        ->leftJoin('proveedores as pr', 'p.proveedor', '=', 'pr.id')
+        ->where('p.user_id', $userId)
+        ->orderBy('p.' . $campo, $direccion)
+        ->select('p.*', 'pr.nombre as proveedor_nombre')
+        ->get();
+    
+    $proveedores = DB::select("SELECT id, nombre FROM proveedores WHERE user_id = ?", [$userId]);
 
     return view('welcome')->with([
         'datos' => $productosOrdenados,
+        'proveedores' => $proveedores,
         'campo' => $campo,
         'direccion' => $direccion,
     ]);
@@ -105,12 +193,21 @@ public function ordenar(Request $request)
 
 public function cambiarStatus($id)
 {
-    $producto = DB::table('producto')->where('IdProducto', $id)->first();
+    $userId = Auth::id();
+    
+    // Solo cambiar estado si el producto pertenece al usuario
+    $producto = DB::table('producto')
+        ->where('IdProducto', $id)
+        ->where('user_id', $userId)
+        ->first();
 
     if ($producto) {
         $nuevoEstado = $producto->estado == 1 ? 0 : 1;
 
-        DB::table('producto')->where('IdProducto', $id)->update(['estado' => $nuevoEstado]);
+        DB::table('producto')
+            ->where('IdProducto', $id)
+            ->where('user_id', $userId)
+            ->update(['estado' => $nuevoEstado]);
 
         return back()->with('success', 'Estado cambiado exitosamente');
     }

@@ -6,24 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Bootstrap CSS v5.3.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <style>
-        .status-circle {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .modal.fade .modal-dialog {
-            transition: transform 0.3s ease-out;
-            transform: translateY(-100%);
-        }
-        .modal.show .modal-dialog {
-            transform: translateY(0);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('estilos/clientes.css') }}">
 </head>
 
 <body>
@@ -61,14 +45,18 @@
         <div class="alert alert-danger">{{ session("Incorrecto") }}</div>
     @endif
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container mt-4">
         <h1 class="mb-4">Administrar Clientes</h1>
-        <script>
-      function res(){
-        return confirm("¿Estas seguro de eliminar este cliente?")
-      }
-
-        </script>
         <div class="d-flex justify-content-between mb-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistrar">
                 Añadir Cliente
@@ -209,5 +197,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/clientes.js') }}"></script>
 </body>
 </html>

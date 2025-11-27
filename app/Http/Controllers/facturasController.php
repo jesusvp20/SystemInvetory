@@ -18,6 +18,20 @@ class facturasController extends Controller
 
     public function store(Request $request)
     {
+        // Validaciones según esquema SQL
+        $request->validate([
+            'cliente_id' => 'required|integer|exists:clientes,id',
+            'productos_id' => 'required|array|min:1',
+            'cantidad' => 'required|array|min:1',
+            'precio_unitario' => 'required|array|min:1',
+        ], [
+            'cliente_id.required' => 'Debe seleccionar un cliente',
+            'cliente_id.exists' => 'El cliente seleccionado no existe',
+            'productos_id.required' => 'Debe seleccionar al menos un producto',
+            'cantidad.required' => 'Debe especificar las cantidades',
+            'precio_unitario.required' => 'Debe especificar los precios',
+        ]);
+
         // Crear factura y obtener el ID
         $facturaId = DB::table('facturas')->insertGetId([
             'numero_factura' => 'FAC-' . time(),
@@ -34,8 +48,17 @@ class facturasController extends Controller
         $precios = $request->precio_unitario;
 
         foreach ($productos as $index => $productoId) {
-            $cantidad = $cantidades[$index];
-            $precio = $precios[$index];
+            $cantidad = intval($cantidades[$index]);
+            // Limpiar formato de precio (quitar puntos de miles)
+            $precio = str_replace('.', '', $precios[$index]);
+            $precio = str_replace(',', '.', $precio);
+            $precio = floatval($precio);
+            
+            // Validar límites
+            if ($precio > 10000000) {
+                return back()->with("Incorrecto", "El precio no puede exceder 10.000.000");
+            }
+            
             $subtotal = $cantidad * $precio;
             $total += $subtotal;
 

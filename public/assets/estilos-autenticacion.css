@@ -1,0 +1,65 @@
+/* 
+ * Estilos para las vistas de autenticación (Login, Registro, Cambiar Contraseña)
+ * Fecha: 2024-12-19
+ * Cambio: Separado CSS del HTML para mejor organización
+ * Por qué: Facilita el mantenimiento y reutilización de estilos
+ */
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.h-custom {
+    height: calc(100% - 73px);
+}
+
+@media (max-width: 450px) {
+    .h-custom {
+        height: 100%;
+    }
+}
+
+/* Contenedor para input con icono de contraseña */
+.input-password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-password-wrapper input {
+    padding-right: 45px;
+    width: 100%;
+}
+
+/* Estilos para botones de mostrar/ocultar contraseña */
+.btn-toggle-password {
+    border: none;
+    background: none;
+    color: #6c757d;
+    text-decoration: none;
+    z-index: 10;
+    padding: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.btn-toggle-password:hover {
+    color: #495057;
+}
+
+.btn-toggle-password i {
+    font-size: 1.1rem;
+}
+

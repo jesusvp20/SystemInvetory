@@ -14,6 +14,7 @@ use App\Http\Controllers\ClientesActivosController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\VentasController;
+use App\Http\Controllers\Auth\RecuperarContrasenaController;
 
 // Redirigir al dashboard según el estado de autenticación
 Route::get('/', function () {
@@ -24,6 +25,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+// Rutas para recuperar contraseña (sin autenticación)
+Route::get('/recuperar-contrasena', [RecuperarContrasenaController::class, 'mostrarFormularioEmail'])->name('recuperar.email');
+Route::post('/recuperar-contrasena/verificar', [RecuperarContrasenaController::class, 'verificarEmail'])->name('recuperar.verificar');
+Route::post('/recuperar-contrasena/actualizar', [RecuperarContrasenaController::class, 'actualizarContrasena'])->name('recuperar.actualizar');
 
 // Rutas protegidas por autenticación
 Route::middleware(['auth'])->group(function () {
@@ -90,4 +96,5 @@ Route::middleware(['auth'])->group(function () {
          Route::put('ventas/update', [VentasController::class, 'update'])->name('ventas.update');
         //historial de busqueda
         route::get('/ventasHistorial',[ventasHistorialController::class, 'index'])->name('ventasHistorial.index');
+        
         });

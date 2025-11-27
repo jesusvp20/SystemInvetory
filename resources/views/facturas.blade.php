@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('estilos/facturas.css') }}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: black;">
@@ -37,6 +37,22 @@
         </div>
     </nav>
 <div class="container mt-4">
+    @if(session("Correcto"))
+        <div class="alert alert-success">{{ session("Correcto") }}</div>
+    @endif
+    @if(session("Incorrecto"))
+        <div class="alert alert-danger">{{ session("Incorrecto") }}</div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h1 class="mb-4 text-center">Factura de Compra</h1>
 
     <form action="{{ route('facturas.store') }}" method="POST">
@@ -82,5 +98,6 @@
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('js/facturas.js') }}"></script>
 </body>
 </html>

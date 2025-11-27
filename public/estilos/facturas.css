@@ -1,0 +1,61 @@
+/* Estilos para la vista de Facturas */
+
+.table-facturas {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.table-facturas thead {
+    background-color: #343a40;
+    color: white;
+}
+
+.table-facturas tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.alert-validacion {
+    border-left: 4px solid;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.alert-validacion.error {
+    border-left-color: #dc3545;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+}
+
+.precio-formato {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+}
+
+/* Estado de factura */
+.badge-pendiente {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge-pagada {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-cancelada {
+    background-color: #dc3545;
+    color: #fff;
+}
+

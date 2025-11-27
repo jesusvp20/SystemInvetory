@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -25,6 +26,9 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after registration.
+     * Fecha: 2024-12-19
+     * Cambio: Redirección al login después del registro
+     * Por qué: El usuario debe iniciar sesión después de registrarse
      *
      * @var string
      */
@@ -38,6 +42,22 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * The user has been registered.
+     * Fecha: 2024-12-19
+     * Cambio: Sobrescrito para redirigir al login con mensaje de éxito
+     * Por qué: Asegura que el usuario sea redirigido al login después del registro
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        return redirect($this->redirectPath())
+            ->with('success', 'Usuario registrado exitosamente. Por favor, inicia sesión.');
     }
 
     /**

@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('estilos/proveedores.css') }}">
 </head>
 
 <body>
@@ -45,13 +46,18 @@
     <div class="alert alert-danger">{{session("Incorrecto")}} </div>
     @endif
 
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="container mt-4">
         <h1>Lista de Proveedores</h1>
-        <script>
-            function res() {
-                return confirm("¿Estás seguro de eliminar este proveedor?");
-            }
-        </script>
 
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Ingresar Proveedores</button>
 
@@ -170,5 +176,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/proveedores.js') }}"></script>
 </body>
 </html>

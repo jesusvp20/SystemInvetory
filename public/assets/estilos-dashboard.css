@@ -1,0 +1,21 @@
+/* 
+ * Estilos para el Dashboard
+ * Fecha: 2024-12-19
+ * Cambio: Separado CSS del HTML para mejor organización
+ * Por qué: Facilita el mantenimiento y reutilización de estilos
+ */
+
+.card {
+    margin: 10px 0;
+    transition: transform 0.2s;
+    height: 100%;
+    width: 100%;
+    margin: 5px;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+

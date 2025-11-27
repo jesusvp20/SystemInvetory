@@ -8,59 +8,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-    <style>
-        .table-modern {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .table-modern thead {
-            background-color: #343a40;
-            color: white;
-        }
-
-        .table-modern tbody tr:nth-child(odd) {
-            background-color: #f8f9fa;
-        }
-
-        .table-modern tbody tr:nth-child(even) {
-            background-color: #ffffff;
-        }
-
-        .table-modern tbody tr:hover {
-            background-color: #e9ecef;
-        }
-
-        /* Botón de Editar */
-        .btn-primary {
-            background-color: #007bff;
-            /* Color azul por defecto */
-            color: white;
-            /* Color del texto */
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: white;
-            color: #007bff;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            /* Color rojo por defecto */
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .btn-danger:hover {
-            background-color: white;
-            color: #dc3545;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('estilos/inventario.css') }}">
 </head>
 
 <body>
@@ -102,12 +50,15 @@
         <div class="alert alert-danger">{{session("Incorrecto")}} </div>
         @endif
 
-        <script>
-            var res = function() {
-                var not = confirm("¿Estas seguro de eliminar?")
-                return not;
-            }
-        </script>
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar Productos</button>
 
@@ -167,41 +118,49 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end mb-3">
-    <form class="d-flex" role="search" action="{{ route('inventario.buscar') }}" method="GET">
-        <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar producto..." aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-    </form>
-</div>
+        <div class="d-flex justify-content-end align-items-center mb-3 gap-2">
+            <form class="d-flex" role="search" action="{{ route('inventario.buscar') }}" method="GET">
+                <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar producto..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownOrdenar" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-filter"></i> Ordenar
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownOrdenar">
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'nombre', 'direccion' => 'asc']) }}">Nombre (A-Z)</a></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'nombre', 'direccion' => 'desc']) }}">Nombre (Z-A)</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'precio', 'direccion' => 'asc']) }}">Precio (Menor a Mayor)</a></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'precio', 'direccion' => 'desc']) }}">Precio (Mayor a Menor)</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'categoria', 'direccion' => 'asc']) }}">Categoría (A-Z)</a></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'categoria', 'direccion' => 'desc']) }}">Categoría (Z-A)</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'cantidad_disponible', 'direccion' => 'asc']) }}">Cantidad (Menor a Mayor)</a></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'cantidad_disponible', 'direccion' => 'desc']) }}">Cantidad (Mayor a Menor)</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'fecha_creacion', 'direccion' => 'desc']) }}">Más Recientes</a></li>
+                    <li><a class="dropdown-item" href="{{ route('inventario.ordenar', ['campo' => 'fecha_creacion', 'direccion' => 'asc']) }}">Más Antiguos</a></li>
+                </ul>
+            </div>
+        </div>
 
 <table class="table table-hover table-modern">
     <thead>
         <tr>
-            <th scope="col">Numero Del Producto</th>
-            <th scope="col">Nombre Del Producto</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
             <th scope="col">Descripción</th>
             <th scope="col">Precio</th>
-            <th scope="col">Cantidad Disponible</th>
-            <th scope="col">
-                <span style="display: inline-block; cursor: pointer;" onclick="ordenar('categoria')">
-                    Categoria
-                    <span style="color: black;">▲</span>
-                    <span style="color: black;">▼</span>
-                </span>
-            </th>
-            <th scope="col">
-                <span style="display: inline-block; cursor: pointer;" onclick="ordenar('nombre')">
-                    Nombre Del Producto
-                    <span style="color: black;">▲</span>
-                    <span style="color: black;">▼</span>
-                </span>
-            </th>
-            <th scope="col">Código Del Producto</th>
-            <th scope="col">Fecha De Creación</th>
-            <th scope="col">Fecha De Actualización</th>
-            <th scope ="col">Estado </th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Código</th>
+            <th scope="col">Creación</th>
+            <th scope="col">Actualización</th>
+            <th scope="col">Estado</th>
             <th scope="col" class="text-center">Acciones</th>
-
         </tr>
     </thead>
     <tbody>
@@ -213,7 +172,7 @@
             <td>{{ $item->precio }}</td>
             <td>{{ $item->cantidad_disponible }}</td>
             <td>{{ $item->categoria }}</td>
-            <td>{{ $item->proveedor }}</td>
+            <td>{{ $item->proveedor_nombre ?? 'Sin proveedor' }}</td>
             <td>{{ $item->codigoProducto }}</td>
             <td>{{ \Carbon\Carbon::parse($item->fecha_creacion)->format('d-m-Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($item->fecha_actualizacion)->format('d-m-Y') }}</td>
@@ -235,7 +194,7 @@
                     <a href="#" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar{{ $item->IdProducto }}">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a href="{{ route('inventario.delete', $item->IdProducto) }}" onclick="return res()" class="btn btn-danger btn-sm">
+                    <a href="{{ route('inventario.delete', $item->IdProducto) }}" onclick="return confirmarEliminar()" class="btn btn-danger btn-sm">
                         <i class="bi bi-trash"></i>
                     </a>
                 </div>
@@ -302,17 +261,10 @@
     </tbody>
 </table>
 
-<script>
-    function ordenar(campo) {
-        let direccion = 'asc';
-        window.location.href = `{{ route('inventario.ordenar') }}?campo=${campo}&direccion=${direccion}`;
-    }
-</script>
-
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/inventario.js') }}"></script>
 
 </body>
 

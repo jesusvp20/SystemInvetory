@@ -6,22 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-    <style>
-        .card {
-            margin: 10px 0;
-            transition: transform 0.2s;
-            height: 100%;
-            width: 100%;
-            margin: 5px;
-            padding: 50px;
-            border-radius: 10px;
-        }
-        .card:hover {
-            transform: scale(1.05);
-
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('estilos/dashboard.css') }}" />
 </head>
 
 <body>
@@ -48,7 +33,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('clientesActivos.index')}}"><i class="bi bi-person-check-fill"></i>Ver clientes activos</a>
                         </li>
-                        <li class="nav-ite">
+                        <li class="nav-item">
                             <a href="{{route('ventasHistorial.index')}}" class="nav-link">
                                 <i class="bi bi-clock-history"></i>   Ver historial de compras
                             </a>
@@ -144,5 +129,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
 </html>
