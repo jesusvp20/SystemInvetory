@@ -26,6 +26,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Ruta de prueba para verificar conexión a BD
+Route::get('/test-db', function () {
+    try {
+        $pdo = \DB::connection()->getPdo();
+        $users = \DB::table('users')->count();
+        return "Conexión OK! Usuarios en BD: " . $users;
+    } catch (\Exception $e) {
+        return "Error de conexión: " . $e->getMessage();
+    }
+});
+
 // Rutas para recuperar contraseña (sin autenticación)
 Route::get('/recuperar-contrasena', [RecuperarContrasenaController::class, 'mostrarFormularioEmail'])->name('recuperar.email');
 Route::post('/recuperar-contrasena/verificar', [RecuperarContrasenaController::class, 'verificarEmail'])->name('recuperar.verificar');
