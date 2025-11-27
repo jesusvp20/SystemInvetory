@@ -54,7 +54,7 @@
                         <h6 class="card-title">Inventario</h6>
                         <p class="card-text d-none d-md-block">Gestiona tus productos.</p>
                         <p class="card-text"><strong>{{ $totalProductos }}</strong> <small>productos</small></p>
-                        <a href="{{ route('inventario.index') }}" class="btn btn-primary px-4"><i class="bi bi-arrow-right-circle"></i> Ir</a>
+                        <a href="{{ route('inventario.index') }}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-arrow-right-circle me-1"></i> Ir</a>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <h6 class="card-title">Proveedores</h6>
                         <p class="card-text d-none d-md-block">Gestiona proveedores.</p>
                         <p class="card-text"><strong>{{ $totalProveedores }}</strong> <small>proveedores</small></p>
-                        <a href="{{ route('AdminProveedores.index') }}" class="btn btn-primary px-4"><i class="bi bi-arrow-right-circle"></i> Ir</a>
+                        <a href="{{ route('AdminProveedores.index') }}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-arrow-right-circle me-1"></i> Ir</a>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                         <h6 class="card-title">Clientes</h6>
                         <p class="card-text d-none d-md-block">Gestionar clientes.</p>
                         <p class="card-text"><strong>{{ $totalClientes }}</strong> <small>clientes</small></p>
-                        <a href="{{route('clientes.index')}}" class="btn btn-primary px-4"><i class="bi bi-arrow-right-circle"></i> Ir</a>
+                        <a href="{{route('clientes.index')}}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-arrow-right-circle me-1"></i> Ir</a>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                     <div class="card-body text-center">
                         <h6 class="card-title">Reportes</h6>
                         <p class="card-text d-none d-md-block">Genera reportes.</p>
-                        <a href="{{route('reporte.index')}}" class="btn btn-primary px-4"><i class="bi bi-eye"></i> Ver</a>
+                        <a href="{{route('reporte.index')}}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-eye me-1"></i> Ver</a>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                     <div class="card-body text-center">
                         <h6 class="card-title">Facturas</h6>
                         <p class="card-text d-none d-md-block">Genera facturas.</p>
-                        <a href="{{route('facturas.index')}}" class="btn btn-primary px-4"><i class="bi bi-file-text"></i> Ver</a>
+                        <a href="{{route('facturas.index')}}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-file-text me-1"></i> Ver</a>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                         <h6 class="card-title">Ventas</h6>
                         <p class="card-text d-none d-md-block">Gestionar ventas.</p>
                         <p class="card-text"><strong>{{$totalVentas}}</strong> <small>ventas</small></p>
-                        <a href="{{ route('Ventas.index') }}" class="btn btn-primary px-4"><i class="bi bi-cart3"></i> Ir</a>
+                        <a href="{{ route('Ventas.index') }}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-cart3 me-1"></i> Ir</a>
                     </div>
                 </div>
             </div>

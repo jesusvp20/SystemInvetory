@@ -62,8 +62,8 @@ function validarFormularioProducto(form) {
     if (isNaN(valorPrecio) || valorPrecio <= 0) {
         mostrarError(precio, 'El precio debe ser mayor a 0');
         valido = false;
-    } else if (valorPrecio > 10000000) {
-        mostrarError(precio, 'El precio no puede exceder 10.000.000');
+    } else if (valorPrecio > 999999999999) {
+        mostrarError(precio, 'El precio no puede exceder 999.999.999.999');
         valido = false;
     }
 
