@@ -37,7 +37,7 @@ class InventarioController extends Controller
         'txtcantidad_disponible' => 'required|integer|min:0|max:2147483647',
         'txtcategoria' => 'required|string|max:50',
         'txtproveedor' => 'required',
-        'txtcodigoProducto' => 'required|string|max:50|unique:producto,codigoProducto',
+        'txtcodigoProducto' => 'required|string|max:50|unique:producto,"codigoProducto"',
     ], [
         'txtname.required' => 'El nombre del producto es requerido',
         'txtname.max' => 'El nombre no puede exceder 250 caracteres',
@@ -62,7 +62,7 @@ class InventarioController extends Controller
     $precio = str_replace('.', '', $request['txtprecio']);
     $precio = str_replace(',', '.', $precio);
     
-    $sql = DB::insert("INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible, categoria, proveedor, codigoProducto, fecha_creacion, fecha_actualizacion, user_id)
+    $sql = DB::insert("INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible, categoria, proveedor, \"codigoProducto\", fecha_creacion, fecha_actualizacion, user_id)
      VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)", [
         $request['txtname'],
         $request['txtdescripcion'],
@@ -106,7 +106,7 @@ class InventarioController extends Controller
     $precio = str_replace('.', '', $request['txtprecio']);
     $precio = str_replace(',', '.', $precio);
     
-    $sql = DB::update("UPDATE producto SET
+    $sql = DB::update('UPDATE producto SET
         nombre = ?,
         descripcion = ?,
         precio = ?,
@@ -114,7 +114,7 @@ class InventarioController extends Controller
         cantidad_disponible = ?,
         categoria = ?,
         fecha_actualizacion = NOW()
-        WHERE IdProducto = ? AND user_id = ?",
+        WHERE "IdProducto" = ? AND user_id = ?',
         [
             $request['txtname'],
             $request['txtdescripcion'],
@@ -137,7 +137,7 @@ public function delete($id){
     $userId = Auth::id();
     
     // Solo eliminar si el producto pertenece al usuario
-    $sql = DB::delete("DELETE FROM producto WHERE IdProducto = ? AND user_id = ?", [$id, $userId]);
+    $sql = DB::delete('DELETE FROM producto WHERE "IdProducto" = ? AND user_id = ?', [$id, $userId]);
 
    if ($sql == true){
     return back()->with("Correcto","Producto ha sido eliminado correctamente");
@@ -151,12 +151,12 @@ public function search(Request $request){
     $userId = Auth::id();
 
     // Buscar solo en productos del usuario con nombre del proveedor
-    $productos = DB::select("
+    $productos = DB::select('
         SELECT p.*, pr.nombre AS proveedor_nombre 
         FROM producto p 
         LEFT JOIN proveedores pr ON CAST(p.proveedor AS INTEGER) = pr.id 
-        WHERE p.user_id = ? AND (p.\"codigoProducto\" LIKE ? OR p.nombre LIKE ?)
-    ", [
+        WHERE p.user_id = ? AND (p."codigoProducto" LIKE ? OR p.nombre LIKE ?)
+    ', [
         $userId,
         '%' . $query . '%',
         '%' . $query . '%'
@@ -169,14 +169,14 @@ public function search(Request $request){
 
 public function ordenar(Request $request)
 {
-    $campo = $request->input('campo', 'IdProducto');
+    $campo = $request->input('campo', '"IdProducto"');
     $direccion = $request->input('direccion', 'asc');
     $userId = Auth::id();
 
     // Campos permitidos para evitar SQL injection
-    $camposPermitidos = ['IdProducto', 'nombre', 'precio', 'categoria', 'cantidad_disponible', 'fecha_creacion'];
+    $camposPermitidos = ['"IdProducto"', 'nombre', 'precio', 'categoria', 'cantidad_disponible', 'fecha_creacion'];
     if (!in_array($campo, $camposPermitidos)) {
-        $campo = 'IdProducto';
+        $campo = '"IdProducto"';
     }
     $direccion = strtolower($direccion) === 'desc' ? 'DESC' : 'ASC';
 
@@ -205,7 +205,7 @@ public function cambiarStatus($id)
     
     // Solo cambiar estado si el producto pertenece al usuario
     $producto = DB::table('producto')
-        ->where('IdProducto', $id)
+        ->whereRaw('"IdProducto" = ?', [$id])
         ->where('user_id', $userId)
         ->first();
 
@@ -213,7 +213,7 @@ public function cambiarStatus($id)
         $nuevoEstado = $producto->estado == 1 ? 0 : 1;
 
         DB::table('producto')
-            ->where('IdProducto', $id)
+            ->whereRaw('"IdProducto" = ?', [$id])
             ->where('user_id', $userId)
             ->update(['estado' => $nuevoEstado]);
 

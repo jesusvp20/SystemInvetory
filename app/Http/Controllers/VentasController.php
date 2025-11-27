@@ -18,18 +18,18 @@ class VentasController extends Controller
     {
         $userId = Auth::id();
         
-        $dato = DB::select("
+        $dato = DB::select('
             SELECT v.id_venta, v.fecha_venta, v.total, v.id_cliente, c.nombre AS cliente_nombre,
-                   STRING_AGG(p.nombre, ', ') AS productos_nombres
+                   STRING_AGG(p.nombre, \', \') AS productos_nombres
             FROM ventas v
             LEFT JOIN clientes c ON v.id_cliente = c.id
             LEFT JOIN detalle_ventas dv ON v.id_venta = dv.id_venta
-            LEFT JOIN producto p ON dv.id_producto = p.IdProducto
+            LEFT JOIN producto p ON dv.id_producto = p."IdProducto"
             WHERE v.user_id = ?
             GROUP BY v.id_venta, v.fecha_venta, v.total, v.id_cliente, c.nombre
-        ", [$userId]);
+        ', [$userId]);
 
-        $productos = DB::select("SELECT IdProducto, nombre, precio FROM producto WHERE user_id = ?", [$userId]);
+        $productos = DB::select("SELECT \"IdProducto\", nombre, precio FROM producto WHERE user_id = ?", [$userId]);
         $clientes  = DB::select("SELECT id, nombre FROM clientes WHERE user_id = ?", [$userId]);
 
         return view("ventas")
@@ -76,7 +76,7 @@ class VentasController extends Controller
 
             foreach ($productos as $index => $productoId) {
                 $producto = DB::table('producto')
-                    ->where('IdProducto', $productoId)
+                    ->whereRaw('"IdProducto" = ?', [$productoId])
                     ->where('user_id', $userId)
                     ->first();
 
@@ -91,16 +91,16 @@ class VentasController extends Controller
             }
 
             // Recuperar venta para mostrar
-            $venta = DB::selectOne("
+            $venta = DB::selectOne('
                 SELECT v.id_venta, v.fecha_venta, v.total, v.id_cliente, c.nombre AS cliente_nombre,
-                       STRING_AGG(p.nombre, ', ') AS productos_nombres
+                       STRING_AGG(p.nombre, \', \') AS productos_nombres
                 FROM ventas v
                 INNER JOIN clientes c ON v.id_cliente = c.id
                 INNER JOIN detalle_ventas dv ON v.id_venta = dv.id_venta
-                INNER JOIN producto p ON dv.id_producto = p.IdProducto
+                INNER JOIN producto p ON dv.id_producto = p."IdProducto"
                 WHERE v.id_venta = ? AND v.user_id = ?
                 GROUP BY v.id_venta, v.fecha_venta, v.total, v.id_cliente, c.nombre
-            ", [$ventaId, $userId]);
+            ', [$ventaId, $userId]);
 
             return response()->json(['success' => true, 'venta' => $venta]);
         } catch (\Exception $e) {
