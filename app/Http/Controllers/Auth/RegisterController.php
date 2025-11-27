@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -70,7 +71,7 @@ class RegisterController extends Controller
     {
         try {
             // Debug: probar conexión a la base de datos
-            \DB::connection()->getPdo();
+            DB::connection()->getPdo();
             
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:255'],
