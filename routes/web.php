@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Rutas para gestionar el inventario
         Route::get("/inventario", [InventarioController::class, "index"])->name("inventario.index");
+        Route::get("/Registrar", function() { return redirect()->route('inventario.index'); }); // Redireccionar GET a inventario
         Route::post("/Registrar", [InventarioController::class, "create"])->name("inventario.create");
         Route::put("/Actualizar", [InventarioController::class, "update"])->name("inventario.update");
         Route::get("/Eliminar-{id}", [InventarioController::class, "delete"])->name("inventario.delete");
