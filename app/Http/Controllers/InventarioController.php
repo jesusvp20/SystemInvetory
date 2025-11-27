@@ -21,7 +21,7 @@ class InventarioController extends Controller
       $datos = DB::select("
           SELECT p.*, pr.nombre AS proveedor_nombre 
           FROM producto p 
-          LEFT JOIN proveedores pr ON p.proveedor = pr.id 
+          LEFT JOIN proveedores pr ON CAST(p.proveedor AS INTEGER) = pr.id 
           WHERE p.user_id = ?
       ", [$userId]);
       $proveedores = DB::select("SELECT id, nombre FROM proveedores WHERE user_id = ?", [$userId]);
@@ -154,8 +154,8 @@ public function search(Request $request){
     $productos = DB::select("
         SELECT p.*, pr.nombre AS proveedor_nombre 
         FROM producto p 
-        LEFT JOIN proveedores pr ON p.proveedor = pr.id 
-        WHERE p.user_id = ? AND (p.codigoProducto LIKE ? OR p.nombre LIKE ?)
+        LEFT JOIN proveedores pr ON CAST(p.proveedor AS INTEGER) = pr.id 
+        WHERE p.user_id = ? AND (p.\"codigoProducto\" LIKE ? OR p.nombre LIKE ?)
     ", [
         $userId,
         '%' . $query . '%',
@@ -173,13 +173,21 @@ public function ordenar(Request $request)
     $direccion = $request->input('direccion', 'asc');
     $userId = Auth::id();
 
+    // Campos permitidos para evitar SQL injection
+    $camposPermitidos = ['IdProducto', 'nombre', 'precio', 'categoria', 'cantidad_disponible', 'fecha_creacion'];
+    if (!in_array($campo, $camposPermitidos)) {
+        $campo = 'IdProducto';
+    }
+    $direccion = strtolower($direccion) === 'desc' ? 'DESC' : 'ASC';
+
     // Ordenar solo productos del usuario con nombre del proveedor
-    $productosOrdenados = DB::table('producto as p')
-        ->leftJoin('proveedores as pr', 'p.proveedor', '=', 'pr.id')
-        ->where('p.user_id', $userId)
-        ->orderBy('p.' . $campo, $direccion)
-        ->select('p.*', 'pr.nombre as proveedor_nombre')
-        ->get();
+    $productosOrdenados = DB::select("
+        SELECT p.*, pr.nombre AS proveedor_nombre 
+        FROM producto p 
+        LEFT JOIN proveedores pr ON CAST(p.proveedor AS INTEGER) = pr.id 
+        WHERE p.user_id = ?
+        ORDER BY p.{$campo} {$direccion}
+    ", [$userId]);
     
     $proveedores = DB::select("SELECT id, nombre FROM proveedores WHERE user_id = ?", [$userId]);
 
