@@ -16,8 +16,12 @@
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-md-9 col-lg-6 col-xl-5">
-        <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" class="img-fluid" alt="Sample image">
+      <div class="col-md-9 col-lg-6 col-xl-5 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+        <h2 class="mt-3 text-primary fw-bold">Sistema de Inventario</h2>
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         @if(session('success'))
@@ -47,10 +51,10 @@
           </div>
 
           <label class="form-label" for="form3Example4">Contraseña</label>
-          <div class="form-outline mb-3 position-relative">
+          <div class="form-outline mb-3" style="position: relative;">
             <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" autocomplete="current-password" style="padding-right: 45px;" />
-            <button type="button" class="btn-toggle-password" id="togglePassword">
-              <i class="bi bi-eye" id="eyeIcon"></i>
+            <button type="button" id="togglePassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; padding: 0;">
+              <i class="bi bi-eye" id="eyeIcon" style="font-size: 1.2rem; color: #6c757d;"></i>
             </button>
           </div>
 
