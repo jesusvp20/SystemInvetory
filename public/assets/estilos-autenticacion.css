@@ -35,6 +35,13 @@
     width: 100%;
 }
 
+/* Quitar el icono de validación de Bootstrap en inputs de contraseña 
+   para evitar superposición con el icono de ver contraseña */
+.input-password-wrapper input.is-invalid {
+    background-image: none !important;
+    border-color: #dc3545;
+}
+
 /* Estilos para botones de mostrar/ocultar contraseña */
 .btn-toggle-password {
     border: none;
