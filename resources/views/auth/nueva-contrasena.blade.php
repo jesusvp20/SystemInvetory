@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="{{ asset('assets/estilos-autenticacion.css') }}" />
 </head>
 <body>
-<section class="vh-100">
+<section class="min-vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-md-9 col-lg-6 col-xl-5">
-        <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" class="img-fluid" alt="Sample image">
+      <div class="col-md-5 col-lg-5 col-xl-5 d-none d-md-flex justify-content-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" class="img-fluid" style="max-width: 250px;" alt="Sample image">
       </div>
-      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <h2 class="mb-4">Nueva Contraseña</h2>
+      <div class="col-12 col-md-7 col-lg-6 col-xl-4 px-4 px-md-3 py-4 py-md-0">
+        <h2 class="mb-4 text-center text-md-start">Nueva Contraseña</h2>
         
         @if($errors->any())
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -57,8 +57,8 @@
             </div>
           </div>
 
-          <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+          <div class="text-center text-md-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto" style="padding-left: 2.5rem; padding-right: 2.5rem;">
               Cambiar Contraseña
             </button>
           </div>

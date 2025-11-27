@@ -19,7 +19,8 @@
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
 
-            <h1 class="text-white fw-bold"> Control De Proveedores </h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Control De Proveedores</h1>
+            <span class="text-white fw-bold d-md-none">Proveedores</span>
 
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -56,10 +57,12 @@
     </div>
     @endif
 
-    <div class="container mt-4">
-        <h1>Lista de Proveedores</h1>
+    <div class="container-fluid px-2 px-md-4 mt-4">
+        <h1 class="fs-4 fs-md-1 mb-3">Lista de Proveedores</h1>
 
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Ingresar Proveedores</button>
+        <button type="button" class="btn btn-success btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#modalRegistrar">
+            <i class="bi bi-plus-lg"></i> <span class="d-none d-md-inline">Ingresar Proveedores</span><span class="d-md-none">Agregar</span>
+        </button>
 
         <div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -94,7 +97,8 @@
             </div>
         </div>
 
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+        <table class="table table-bordered table-hover table-sm">
             <thead class="table-dark">
                 <tr>
                     <th scope="col" class="text-center">ID</th>
@@ -173,6 +177,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

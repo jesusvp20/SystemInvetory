@@ -19,7 +19,8 @@
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
 
-            <h1 class="text-white fw-bold">Gestión de Ventas</h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Gestión de Ventas</h1>
+            <span class="text-white fw-bold d-md-none">Ventas</span>
 
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -41,7 +42,7 @@
     </nav>
 
 
-<div class="container mt-4">
+<div class="container-fluid px-2 px-md-4 mt-4">
     @if(session("Correcto"))
         <div class="alert alert-success">{{ session("Correcto") }}</div>
     @endif
@@ -59,14 +60,15 @@
         </div>
     @endif
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Ventas</h2>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrarVentaModal">
-            <i class="bi bi-cart4"></i> Registrar Venta
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3 gap-2">
+        <h2 class="fs-4 fs-md-2 mb-2 mb-md-0">Ventas</h2>
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#registrarVentaModal">
+            <i class="bi bi-cart4"></i> <span class="d-none d-md-inline">Registrar Venta</span><span class="d-md-none">Nueva</span>
         </button>
     </div>
 
-    <table class="table table-bordered">
+    <div class="table-responsive">
+    <table class="table table-bordered table-sm">
         <thead>
             <tr>
                 <th>Número de Venta</th>
@@ -98,6 +100,7 @@
             @endforeach
         </tbody>
     </table>
+    </div>
 </div>
 
 <!-- Modal Registrar Venta -->

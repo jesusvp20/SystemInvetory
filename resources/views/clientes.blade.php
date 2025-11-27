@@ -17,7 +17,8 @@
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
 
-            <h1 class="text-white fw-bold">Clientes</h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Clientes</h1>
+            <span class="text-white fw-bold d-md-none">Clientes</span>
 
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -55,16 +56,16 @@
         </div>
     @endif
 
-    <div class="container mt-4">
-        <h1 class="mb-4">Administrar Clientes</h1>
-        <div class="d-flex justify-content-between mb-3">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistrar">
-                Añadir Cliente
+    <div class="container-fluid px-2 px-md-4 mt-4">
+        <h1 class="mb-3 fs-4 fs-md-1">Administrar Clientes</h1>
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-3 gap-2">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistrar">
+                <i class="bi bi-plus-lg"></i> <span class="d-none d-md-inline">Añadir Cliente</span><span class="d-md-none">Añadir</span>
             </button>
 
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ordenar por
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-filter"></i> Ordenar
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{{ route('cliente.ordenar', ['ordenarPor' => 'id']) }}">ID</a></li>
@@ -111,7 +112,8 @@
             </div>
         </div>
 
-        <table class="table table-striped table-hover">
+        <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm">
             <thead class="table-dark">
                 <tr>
                     <th scope="col" class="text-center">ID</th>
@@ -193,6 +195,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>

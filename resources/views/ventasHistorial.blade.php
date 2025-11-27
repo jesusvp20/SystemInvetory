@@ -16,7 +16,8 @@
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
 
-            <h1 class="text-white fw-bold">Registros de Ventas</h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Registros de Ventas</h1>
+            <span class="text-white fw-bold d-md-none">Historial</span>
 
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -36,26 +37,25 @@
             </div>
         </div>
     </nav>
-<br>
-<br>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Historial de Ventas</h1>
+<div class="container-fluid px-2 px-md-4 mt-4">
+        <h1 class="text-center mb-3 fs-4 fs-md-1">Historial de Ventas</h1>
 
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <input type="text" id="searchCliente" class="form-control" placeholder="Buscar por cliente">
+        <div class="row mb-3 g-2">
+            <div class="col-6 col-md-4">
+                <input type="text" id="searchCliente" class="form-control form-control-sm" placeholder="Buscar cliente...">
             </div>
-            <div class="col-md-4">
-                <input type="date" id="searchFecha" class="form-control">
+            <div class="col-6 col-md-4">
+                <input type="date" id="searchFecha" class="form-control form-control-sm">
             </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary" id="btnBuscar">
+            <div class="col-12 col-md-4">
+                <button class="btn btn-primary btn-sm w-100 w-md-auto" id="btnBuscar">
                     <i class="bi bi-search"></i> Buscar
                 </button>
             </div>
         </div>
 
-        <table class="table table-striped table-bordered">
+        <div class="table-responsive">
+        <table class="table table-striped table-bordered table-sm">
             <thead class="table-dark">
                 <tr>
                     <th># Venta</th>
@@ -77,6 +77,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -28,7 +28,8 @@
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
 
-            <h1 class="text-white fw-bold">Registro De Clientes</h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Registro De Clientes</h1>
+            <span class="text-white fw-bold d-md-none">Clientes</span>
 
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -47,9 +48,10 @@
             </div>
         </div>
     </nav>
-<div class="container my-4">
-    <h2 class="text-center mb-4">Lista de Clientes</h2>
-    <table class="table table-striped table-hover align-middle shadow">
+<div class="container-fluid px-2 px-md-4 my-4">
+    <h2 class="text-center mb-3 fs-4 fs-md-2">Lista de Clientes</h2>
+    <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle shadow table-sm">
         <thead class="table-dark">
             <tr>
                 <th scope="col" class="text-center">ID</th>
@@ -82,6 +84,7 @@
             @endforeach
         </tbody>
     </table>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

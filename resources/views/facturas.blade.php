@@ -16,7 +16,8 @@
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
 
-            <h1 class="text-white fw-bold">Facturas </h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Facturas</h1>
+            <span class="text-white fw-bold d-md-none">Facturas</span>
 
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -36,7 +37,7 @@
             </div>
         </div>
     </nav>
-<div class="container mt-4">
+<div class="container-fluid px-3 px-md-4 mt-4">
     @if(session("Correcto"))
         <div class="alert alert-success">{{ session("Correcto") }}</div>
     @endif
@@ -53,7 +54,7 @@
         </div>
     @endif
 
-    <h1 class="mb-4 text-center">Factura de Compra</h1>
+    <h1 class="mb-4 text-center fs-4 fs-md-1">Factura de Compra</h1>
 
     <form action="{{ route('facturas.store') }}" method="POST">
         @csrf
@@ -85,8 +86,10 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-secondary mb-3" onclick="agregarProducto()">Agregar Producto</button>
-        <button type="submit" class="btn btn-primary">Generar Factura</button>
+        <div class="d-flex flex-column flex-md-row gap-2 mb-3">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="agregarProducto()"><i class="bi bi-plus-lg"></i> Agregar Producto</button>
+            <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-file-earmark-pdf"></i> Generar Factura</button>
+        </div>
     </form>
 </div>
 

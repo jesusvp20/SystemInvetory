@@ -19,7 +19,8 @@
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
 
-            <h1 class="text-white fw-bold">Control De inventario</h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Control De inventario</h1>
+            <span class="text-white fw-bold d-md-none">Inventario</span>
 
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -40,8 +41,8 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h1 class="text-center p-3">Control De Productos</h1>
+    <div class="container-fluid px-2 px-md-4 mt-4">
+        <h1 class="text-center p-2 p-md-3 fs-4 fs-md-1">Control De Productos</h1>
         @if(session("Correcto"))
         <div class="alert alert-success">{{session("Correcto")}} </div>
         @endif
@@ -60,7 +61,11 @@
         </div>
         @endif
 
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistrar">Registrar Productos</button>
+        <button type="button" class="btn btn-success btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#modalRegistrar">
+            <i class="bi bi-plus-lg d-md-none"></i>
+            <span class="d-none d-md-inline">Registrar Productos</span>
+            <span class="d-md-none">Agregar</span>
+        </button>
 
         <div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -118,10 +123,10 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end align-items-center mb-3 gap-2">
+        <div class="d-flex flex-column flex-md-row justify-content-end align-items-stretch align-items-md-center mb-3 gap-2">
             <form class="d-flex" role="search" action="{{ route('inventario.buscar') }}" method="GET">
-                <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar producto..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
+                <input class="form-control form-control-sm me-2" name="buscar" type="search" placeholder="Buscar..." aria-label="Search">
+                <button class="btn btn-outline-success btn-sm" type="submit"><i class="bi bi-search"></i></button>
             </form>
             <div class="dropdown">
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownOrdenar" data-bs-toggle="dropdown" aria-expanded="false">
@@ -146,7 +151,8 @@
             </div>
         </div>
 
-<table class="table table-hover table-modern">
+<div class="table-responsive">
+<table class="table table-hover table-modern table-sm">
     <thead>
         <tr>
             <th scope="col">ID</th>
@@ -260,7 +266,7 @@
         @endforeach
     </tbody>
 </table>
-
+</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

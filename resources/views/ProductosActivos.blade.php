@@ -38,7 +38,8 @@
                     <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
                 </button>
 
-                <h1 class="text-white fw-bold">Productos Activos</h1>
+                <h1 class="text-white fw-bold d-none d-md-block">Productos Activos</h1>
+                <span class="text-white fw-bold d-md-none">Activos</span>
 
                 <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header">
@@ -59,9 +60,10 @@
             </div>
         </nav>
 
-        <div class="container mt-4">
-            <h1 class="mb-4">Productos Activos en Stock</h1>
-            <table class="table table-striped table-hover">
+        <div class="container-fluid px-2 px-md-4 mt-4">
+            <h1 class="mb-3 fs-4 fs-md-1">Productos Activos en Stock</h1>
+            <div class="table-responsive">
+            <table class="table table-striped table-hover table-sm">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -109,6 +111,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
 
         <script

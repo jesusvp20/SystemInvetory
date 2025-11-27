@@ -16,7 +16,8 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon" style="color: white; filter: invert(1);"></span>
             </button>
-            <h1 class="text-white fw-bold">Historial de Ventas</h1>
+            <h1 class="text-white fw-bold d-none d-md-block">Historial de Ventas</h1>
+            <span class="text-white fw-bold d-md-none">Reportes</span>
             <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title text-dark" id="offcanvasDarkNavbarLabel">Opciones</h5>
@@ -35,9 +36,10 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h1 class="mb-4">reporte de Ventas</h1>
-        <table class="table table-striped table-hover">
+    <div class="container-fluid px-2 px-md-4 mt-4">
+        <h1 class="mb-4 fs-4 fs-md-1">Reporte de Ventas</h1>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm">
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -59,8 +61,9 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
 
-        <h3 class="mt-5">Ventas por Producto</h3>
+        <h3 class="mt-4 fs-5">Ventas por Producto</h3>
         <canvas id="ventasChart" width="400" height="200"></canvas>
     </div>
 

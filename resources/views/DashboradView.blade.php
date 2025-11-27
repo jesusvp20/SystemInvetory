@@ -15,8 +15,9 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">Dashboard Principal</a>
-            <button onclick="confirmLogout()" class="btn btn-danger ms-auto">Cerrar Sesión</button>
+            <a class="navbar-brand d-none d-sm-block" href="#">Dashboard Principal</a>
+            <a class="navbar-brand d-sm-none" href="#">Dashboard</a>
+            <button onclick="confirmLogout()" class="btn btn-danger btn-sm ms-auto">Salir</button>
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Gestionar Inventario</h5>
@@ -44,71 +45,69 @@
         </div>
     </nav>
 
-    <div class="container mt-5 pt-5">
-        <div class="row" >
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://cdn-icons-png.freepik.com/256/12201/12201509.png?semt=ais_hybrid" class="card-img-top" alt="Inventario">
+    <div class="container mt-5 pt-4 px-3 px-md-4">
+        <div class="row g-3 g-md-4">
+            <div class="col-6 col-md-4">
+                <div class="card h-100">
+                    <img src="https://cdn-icons-png.freepik.com/256/12201/12201509.png?semt=ais_hybrid" class="card-img-top p-3" alt="Inventario">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Administrar Inventario</h5>
-                        <p class="card-text">Gestiona tus productos de manera eficiente.</p>
-                        <p class="card-text"><strong>Total Productos: {{ $totalProductos }}</strong></p>
-                        <a href="{{ route('inventario.index') }}" class="btn btn-primary">Ir a Inventario</a>
+                        <h6 class="card-title">Inventario</h6>
+                        <p class="card-text d-none d-md-block">Gestiona tus productos.</p>
+                        <p class="card-text"><strong>{{ $totalProductos }}</strong> <small>productos</small></p>
+                        <a href="{{ route('inventario.index') }}" class="btn btn-primary btn-sm">Ir</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 "  class="row mt-4" height="50%" wigth="50%">
-                <div class="card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/860/860800.png" class="card-img-top" alt="Proveedores">
+            <div class="col-6 col-md-4">
+                <div class="card h-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/860/860800.png" class="card-img-top p-3" alt="Proveedores">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Administrar Proveedores</h5>
-                        <p class="card-text">Gestiona la información de tus proveedores.</p>
-                        <p class="card-text"><strong>Total Proveedores: {{ $totalProveedores }}</strong></p>
-                        <a href="{{ route('AdminProveedores.index') }}" class="btn btn-primary">Ir a Proveedores</a>
+                        <h6 class="card-title">Proveedores</h6>
+                        <p class="card-text d-none d-md-block">Gestiona proveedores.</p>
+                        <p class="card-text"><strong>{{ $totalProveedores }}</strong> <small>proveedores</small></p>
+                        <a href="{{ route('AdminProveedores.index') }}" class="btn btn-primary btn-sm">Ir</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174188.png" class="card-img-top" alt="Clientes">
+            <div class="col-6 col-md-4">
+                <div class="card h-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174188.png" class="card-img-top p-3" alt="Clientes">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Clientes</h5>
-                        <p class="card-text">Gestionar clientes</p>
-                        <p class="card-text"><strong>Total De Clientes: {{ $totalClientes }}</strong></p>
-                        <a href="{{route('clientes.index')}}" class="btn btn-primary">Ir a Clientes</a>
+                        <h6 class="card-title">Clientes</h6>
+                        <p class="card-text d-none d-md-block">Gestionar clientes.</p>
+                        <p class="card-text"><strong>{{ $totalClientes }}</strong> <small>clientes</small></p>
+                        <a href="{{route('clientes.index')}}" class="btn btn-primary btn-sm">Ir</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-4" height="50%" wigth="50%">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1364/1364841.png" class="card-img-top" alt="Reportes">
+            <div class="col-6 col-md-4">
+                <div class="card h-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1364/1364841.png" class="card-img-top p-3" alt="Reportes">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Reportes</h5>
-                        <p class="card-text">Genera reportes del inventario y ventas.</p>
-                        <a href="{{route('reporte.index')}}" class="btn btn-primary">Ver Reportes</a>
+                        <h6 class="card-title">Reportes</h6>
+                        <p class="card-text d-none d-md-block">Genera reportes.</p>
+                        <a href="{{route('reporte.index')}}" class="btn btn-primary btn-sm">Ver</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2557/2557649.png" class="card-img-top" alt="Facturas">
+            <div class="col-6 col-md-4">
+                <div class="card h-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2557/2557649.png" class="card-img-top p-3" alt="Facturas">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Facturas</h5>
-                        <p class="card-text">Genera facturas.</p>
-                        <a href="{{route('facturas.index')}}" class="btn btn-primary">Ver Facturas</a>
+                        <h6 class="card-title">Facturas</h6>
+                        <p class="card-text d-none d-md-block">Genera facturas.</p>
+                        <a href="{{route('facturas.index')}}" class="btn btn-primary btn-sm">Ver</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://static.vecteezy.com/system/resources/previews/014/811/040/non_2x/sale-line-icon-vector.jpg" class="card-img-top" alt="Ventas">
+            <div class="col-6 col-md-4">
+                <div class="card h-100">
+                    <img src="https://static.vecteezy.com/system/resources/previews/014/811/040/non_2x/sale-line-icon-vector.jpg" class="card-img-top p-3" alt="Ventas">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Ventas</h5>
-                        <p class="card-text">Gestionar ventas.</p>
-                        <p class="card-text" ><strong> Total de ventas: {{$totalVentas}}</strong> </p>
-                        <a href="{{ route('Ventas.index') }}" class="btn btn-primary">Ir a Ventas</a>
+                        <h6 class="card-title">Ventas</h6>
+                        <p class="card-text d-none d-md-block">Gestionar ventas.</p>
+                        <p class="card-text"><strong>{{$totalVentas}}</strong> <small>ventas</small></p>
+                        <a href="{{ route('Ventas.index') }}" class="btn btn-primary btn-sm">Ir</a>
                     </div>
                 </div>
             </div>
