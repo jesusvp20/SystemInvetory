@@ -58,29 +58,33 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="form3Example4">Correo Electrónico</label>
-                        <input type="email" name="email" id="form3Example4" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="su.correo@example.com" value="{{ old('email') }}" required autocomplete="email" />
+                        <input type="email" name="email" id="form3Example4" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="ejemplo@gmail.com" value="{{ old('email') }}" required autocomplete="email" />
                         @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="mb-3 input-password-wrapper">
+                    <div class="mb-3">
                         <label class="form-label" for="form3Example5">Contraseña</label>
-                        <input type="password" name="password" id="form3Example5" class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required minlength="8" />
-                        <button type="button" class="btn-toggle-password" id="togglePassword">
-                            <i class="bi bi-eye" id="eyeIcon"></i>
-                        </button>
+                        <div class="input-password-wrapper">
+                            <input type="password" name="password" id="form3Example5" class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required minlength="8" />
+                            <button type="button" class="btn-toggle-password" id="togglePassword">
+                                <i class="bi bi-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
                         @error('password')
                           <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="mb-3 input-password-wrapper">
+                    <div class="mb-3">
                         <label class="form-label" for="form3Example6">Confirmar Contraseña</label>
-                        <input type="password" name="password_confirmation" id="form3Example6" class="form-control form-control-lg" placeholder="Confirme su contraseña" autocomplete="new-password" required minlength="8" />
-                        <button type="button" class="btn-toggle-password" id="togglePasswordConfirmation">
-                            <i class="bi bi-eye" id="eyeIconConfirmation"></i>
-                        </button>
+                        <div class="input-password-wrapper">
+                            <input type="password" name="password_confirmation" id="form3Example6" class="form-control form-control-lg" placeholder="Confirme su contraseña" autocomplete="new-password" required minlength="8" />
+                            <button type="button" class="btn-toggle-password" id="togglePasswordConfirmation">
+                                <i class="bi bi-eye" id="eyeIconConfirmation"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="text-center mt-4">

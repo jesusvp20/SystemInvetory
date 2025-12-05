@@ -50,15 +50,17 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="form3Example3">Correo Electrónico</label>
-                        <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="su.correo@example.com" value="{{ old('email') }}" autocomplete="email" required autofocus />
+                        <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="ejemplo@gmail.com" value="{{ old('email') }}" autocomplete="email" required autofocus />
                     </div>
 
-                    <div class="mb-3 input-password-wrapper">
+                    <div class="mb-3">
                         <label class="form-label" for="form3Example4">Contraseña</label>
-                        <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" autocomplete="current-password" required />
-                        <button type="button" class="btn-toggle-password" id="togglePassword">
-                            <i class="bi bi-eye" id="eyeIcon"></i>
-                        </button>
+                        <div class="input-password-wrapper">
+                            <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" autocomplete="current-password" required />
+                            <button type="button" class="btn-toggle-password" id="togglePassword">
+                                <i class="bi bi-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="text-center mt-4">
