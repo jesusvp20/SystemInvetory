@@ -14,13 +14,16 @@
 }
 
 .h-custom {
-    height: calc(100% - 73px);
+    min-height: calc(100vh - 73px);
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
 }
 
 @media (max-width: 767.98px) {
     .h-custom {
-        height: auto;
-        min-height: 100%;
+        min-height: auto;
+        padding: 1rem 0;
     }
     
     /* Hacer el formulario de registro/login más compacto en móviles */
@@ -38,11 +41,6 @@
     /* Ajustar espaciado en móviles */
     .mb-4 {
         margin-bottom: 1rem !important;
-    }
-    
-    /* Centrar texto en móviles */
-    .min-vh-100 {
-        padding-top: 1rem;
     }
 }
 
@@ -92,4 +90,3 @@
 .btn-toggle-password i {
     font-size: 1.1rem;
 }
-
