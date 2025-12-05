@@ -57,12 +57,12 @@
 
           <label class="form-label" for="form3Example3">Correo Electrónico</label>
           <div class="form-outline mb-4">
-            <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="Ingrese su correo electronico" />
+            <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="Ingrese su correo electrónico" value="{{ old('email') }}" autocomplete="email" required autofocus />
           </div>
 
           <label class="form-label" for="form3Example4">Contraseña</label>
           <div class="form-outline mb-3" style="position: relative;">
-            <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" autocomplete="current-password" style="padding-right: 45px;" />
+            <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" autocomplete="current-password" required style="padding-right: 45px;" />
             <button type="button" id="togglePassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; padding: 0;">
               <i class="bi bi-eye" id="eyeIcon" style="font-size: 1.2rem; color: #6c757d;"></i>
             </button>
@@ -73,7 +73,7 @@
           <div class="text-center text-md-start mt-4 pt-2">
             <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto" style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar Sesión</button>
             <p class="small fw-bold mt-3 pt-1 mb-0">
-              No tienes cuenta? <a href="{{ route('register') }}" class="link-danger">Registrarse</a>
+              ¿No tienes cuenta? <a href="{{ route('register') }}" class="link-danger">Registrarse</a>
             </p>
             <p class="small mt-2 mb-0">
               <a href="{{ route('recuperar.email') }}" class="link-primary">

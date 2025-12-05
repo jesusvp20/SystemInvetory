@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="{{ asset('assets/estilos-autenticacion.css') }}?v={{ filemtime(public_path('assets/estilos-autenticacion.css')) }}" />
 </head>
 <body>
-<section class="min-vh-100">
+<section class="min-vh-100 auth-section">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-5 col-lg-5 col-xl-5 d-none d-md-flex justify-content-center">
         <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" class="img-fluid" style="max-width: 250px;" alt="Sample image">
       </div>
-      <div class="col-12 col-md-7 col-lg-6 col-xl-4 px-4 px-md-3 py-4 py-md-0">
+      <div class="col-12 col-md-7 col-lg-6 col-xl-4 px-4 px-md-3 py-4 py-md-0 auth-card">
         <h2 class="mb-4 text-center text-md-start">Recuperar Contraseña</h2>
         
         @if($errors->any())
@@ -37,7 +37,7 @@
 
           <label class="form-label" for="email">Correo Electrónico</label>
           <div class="form-outline mb-4">
-            <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Ingrese su correo electrónico" value="{{ old('email') }}" required autofocus />
+            <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Ingrese su correo electrónico" value="{{ old('email') }}" required autofocus autocomplete="email" />
           </div>
 
           <div class="text-center text-md-start mt-4 pt-2">
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+  <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary auth-footer">
     <div class="text-white mb-3 mb-md-0">
       Copyright © 2025. Todos los derechos reservados.
     </div>

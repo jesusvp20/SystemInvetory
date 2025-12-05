@@ -47,7 +47,7 @@
 
           <label class="form-label" for="form3Example3">Nombre</label>
           <div class="form-outline mb-4">
-            <input type="text" name="name" id="form3Example3" class="form-control form-control-lg @error('name') is-invalid @enderror" placeholder="Ingrese su nombre" value="{{ old('name') }}" required autofocus />
+            <input type="text" name="name" id="form3Example3" class="form-control form-control-lg @error('name') is-invalid @enderror" placeholder="Ingrese su nombre" value="{{ old('name') }}" required autofocus autocomplete="name" />
             @error('name')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -55,7 +55,7 @@
 
           <label class="form-label" for="form3Example4">Correo Electrónico</label>
           <div class="form-outline mb-4">
-            <input type="email" name="email" id="form3Example4" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="Ingrese su correo electrónico" value="{{ old('email') }}" required />
+            <input type="email" name="email" id="form3Example4" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="Ingrese su correo electrónico" value="{{ old('email') }}" required autocomplete="email" />
             @error('email')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -64,7 +64,7 @@
           <label class="form-label" for="form3Example5">Contraseña</label>
           <div class="form-outline mb-4">
             <div class="input-password-wrapper">
-              <input type="password" name="password" id="form3Example5" class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Ingrese su contraseña" autocomplete="new-password" required />
+              <input type="password" name="password" id="form3Example5" class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Ingrese su contraseña" autocomplete="new-password" required minlength="8" />
               <button type="button" class="btn-toggle-password" id="togglePassword">
                 <i class="bi bi-eye" id="eyeIcon"></i>
               </button>
@@ -78,7 +78,7 @@
           <label class="form-label" for="form3Example6">Confirmar Contraseña</label>
           <div class="form-outline mb-3">
             <div class="input-password-wrapper">
-              <input type="password" name="password_confirmation" id="form3Example6" class="form-control form-control-lg" placeholder="Confirme su contraseña" autocomplete="new-password" required />
+              <input type="password" name="password_confirmation" id="form3Example6" class="form-control form-control-lg" placeholder="Confirme su contraseña" autocomplete="new-password" required minlength="8" />
               <button type="button" class="btn-toggle-password" id="togglePasswordConfirmation">
                 <i class="bi bi-eye" id="eyeIconConfirmation"></i>
               </button>
