@@ -17,7 +17,7 @@
             </button>
             <a class="navbar-brand d-none d-sm-block" href="#">Dashboard Principal</a>
             <a class="navbar-brand d-sm-none" href="#">Dashboard</a>
-            <button onclick="confirmLogout()" class="btn btn-danger btn-sm ms-auto"><i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión</button>
+            <button data-bs-toggle="modal" data-bs-target="#logoutModal" class="btn btn-danger btn-sm ms-auto"><i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión</button>
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Gestionar Inventario</h5>
@@ -26,13 +26,13 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('ProductosActivos.index')}}"><i class="bi bi-file-earmark-spreadsheet"></i> Ver productos activos</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('ProductosActivos.index')}}"><i class="bi bi-box-seam"></i> Ver productos activos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ProveedoresActivos.index')}}"><i class="bi bi-person-vcard-fill"></i> Ver Proveedores activos</a>
+                            <a class="nav-link" href="{{route('ProveedoresActivos.index')}}"><i class="bi bi-truck"></i> Ver Proveedores activos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('clientesActivos.index')}}"><i class="bi bi-person-check-fill"></i>Ver clientes activos</a>
+                            <a class="nav-link" href="{{route('clientesActivos.index')}}"><i class="bi bi-people"></i> Ver clientes activos</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('ventasHistorial.index')}}" class="nav-link">
@@ -46,86 +46,150 @@
     </nav>
 
     <div class="container mt-5 pt-4 px-3 px-md-4">
-        <div class="row g-3 g-md-4">
-            <div class="col-6 col-md-4">
-                <div class="card h-100">
-                    <img src="https://cdn-icons-png.freepik.com/256/12201/12201509.png?semt=ais_hybrid" class="card-img-top p-3" alt="Inventario">
-                    <div class="card-body text-center">
-                        <h6 class="card-title">Inventario</h6>
-                        <p class="card-text d-none d-md-block">Gestiona tus productos.</p>
-                        <p class="card-text"><strong>{{ $totalProductos }}</strong> <small>productos</small></p>
-                        <a href="{{ route('inventario.index') }}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-arrow-right-circle me-1"></i> Ir</a>
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="h2">Bienvenido, {{ Auth::user()->name }}!</h1>
+                <p>Aquí tienes un resumen de tu sistema de inventario.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-productos h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <i class="bi bi-box-seam card-icon me-3"></i>
+                        <div>
+                            <div class="contador">{{ $totalProductos }}</div>
+                            <div class="text-uppercase">Productos</div>
+                        </div>
+                        <a href="{{ route('inventario.index') }}" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-4">
-                <div class="card h-100">
-                    <img src="https://cdn-icons-png.flaticon.com/512/860/860800.png" class="card-img-top p-3" alt="Proveedores">
-                    <div class="card-body text-center">
-                        <h6 class="card-title">Proveedores</h6>
-                        <p class="card-text d-none d-md-block">Gestiona proveedores.</p>
-                        <p class="card-text"><strong>{{ $totalProveedores }}</strong> <small>proveedores</small></p>
-                        <a href="{{ route('AdminProveedores.index') }}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-arrow-right-circle me-1"></i> Ir</a>
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-proveedores h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <i class="bi bi-truck card-icon me-3"></i>
+                        <div>
+                            <div class="contador">{{ $totalProveedores }}</div>
+                            <div class="text-uppercase">Proveedores</div>
+                        </div>
+                        <a href="{{ route('AdminProveedores.index') }}" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-4">
-                <div class="card h-100">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174188.png" class="card-img-top p-3" alt="Clientes">
-                    <div class="card-body text-center">
-                        <h6 class="card-title">Clientes</h6>
-                        <p class="card-text d-none d-md-block">Gestionar clientes.</p>
-                        <p class="card-text"><strong>{{ $totalClientes }}</strong> <small>clientes</small></p>
-                        <a href="{{route('clientes.index')}}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-arrow-right-circle me-1"></i> Ir</a>
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-clientes h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <i class="bi bi-people card-icon me-3"></i>
+                        <div>
+                            <div class="contador">{{ $totalClientes }}</div>
+                            <div class="text-uppercase">Clientes</div>
+                        </div>
+                        <a href="{{route('clientes.index')}}" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-4">
-                <div class="card h-100">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1364/1364841.png" class="card-img-top p-3" alt="Reportes">
-                    <div class="card-body text-center">
-                        <h6 class="card-title">Reportes</h6>
-                        <p class="card-text d-none d-md-block">Genera reportes.</p>
-                        <a href="{{route('reporte.index')}}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-eye me-1"></i> Ver</a>
+            <div class="col-md-6 col-lg-3">
+                <div class="card card-ventas h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <i class="bi bi-cash-coin card-icon me-3"></i>
+                        <div>
+                            <div class="contador">{{$totalVentas}}</div>
+                            <div class="text-uppercase">Ventas</div>
+                        </div>
+                        <a href="{{ route('Ventas.index') }}" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-4">
-                <div class="card h-100">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2557/2557649.png" class="card-img-top p-3" alt="Facturas">
-                    <div class="card-body text-center">
-                        <h6 class="card-title">Facturas</h6>
-                        <p class="card-text d-none d-md-block">Genera facturas.</p>
-                        <a href="{{route('facturas.index')}}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-file-text me-1"></i> Ver</a>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        Resumen General
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-4">
-                <div class="card h-100">
-                    <img src="https://static.vecteezy.com/system/resources/previews/014/811/040/non_2x/sale-line-icon-vector.jpg" class="card-img-top p-3" alt="Ventas">
-                    <div class="card-body text-center">
-                        <h6 class="card-title">Ventas</h6>
-                        <p class="card-text d-none d-md-block">Gestionar ventas.</p>
-                        <p class="card-text"><strong>{{$totalVentas}}</strong> <small>ventas</small></p>
-                        <a href="{{ route('Ventas.index') }}" class="btn btn-primary btn-lg px-5 py-2"><i class="bi bi-cart3 me-1"></i> Ir</a>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">Accesos Directos</div>
+                    <div class="list-group list-group-flush">
+                        <a href="{{route('reporte.index')}}" class="list-group-item list-group-item-action"><i class="bi bi-file-earmark-bar-graph me-2"></i> Reportes</a>
+                        <a href="{{route('facturas.index')}}" class="list-group-item list-group-item-action"><i class="bi bi-file-text me-2"></i> Facturas</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <form id="logout-form" method="POST" action="/logout" style="display: none;">
-        @csrf
-    </form>
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="logoutModalLabel">Confirmar Cierre de Sesión</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ¿Estás seguro de que deseas cerrar sesión?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <form id="logout-form" method="POST" action="/logout">
+                @csrf
+                <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        function confirmLogout() {
-            if (confirm("¿Estás seguro de que deseas cerrar sesión?")) {
-                document.getElementById('logout-form').submit();
-            }
-        }
-    </script>
+        const ctx = document.getElementById('myChart');
 
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Productos', 'Proveedores', 'Clientes', 'Ventas'],
+                datasets: [{
+                    label: 'Total de Registros',
+                    data: [{{ $totalProductos }}, {{ $totalProveedores }}, {{ $totalClientes }}, {{ $totalVentas }}],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(240, 147, 251, 0.8)',
+                        'rgba(79, 172, 254, 0.8)',
+                        'rgba(67, 233, 123, 0.8)'
+                    ],
+                    borderColor: [
+                        '#667eea',
+                        '#f093fb',
+                        '#4facfe',
+                        '#43e97b'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>

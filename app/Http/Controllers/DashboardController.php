@@ -39,7 +39,7 @@ class DashboardController extends Controller
             ->where('user_id', $userId)
             ->count();
 
-        return view('DashboradView')->with([
+        return view('DashboardView')->with([
             'totalProductos' => $totalProductos,
             'totalProveedores' => $totalProveedores,
             'totalClientes' => $totalClientes,
