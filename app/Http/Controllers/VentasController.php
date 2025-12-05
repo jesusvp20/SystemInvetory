@@ -62,7 +62,7 @@ class VentasController extends Controller
 
             foreach ($productos as $index => $productoId) {
                 $producto = DB::table('producto')
-                    ->whereRaw('\"IdProducto\" = ?', [$productoId])
+                    ->where(DB::raw('"IdProducto"'), '=', $productoId)
                     ->where('user_id', $userId)
                     ->first();
 
@@ -87,7 +87,7 @@ class VentasController extends Controller
 
             foreach ($productos as $index => $productoId) {
                 $producto = DB::table('producto')
-                    ->whereRaw('\"IdProducto\" = ?', [$productoId])
+                    ->where(DB::raw('"IdProducto"'), '=', $productoId)
                     ->where('user_id', $userId)
                     ->first();
 
