@@ -9,32 +9,33 @@ services:
         value: "Sistema Inventario"
       - key: APP_ENV
         value: production
+      - key: APP_KEY
+        value: "base64:IzWzH2FpU8yirA0lJph78nVDQ1zQJHN5Odac+oCXbSE="
       - key: APP_DEBUG
         value: "false"
       - key: APP_URL
-        value: https://sistema-inventario.onrender.com
+        value: https://systeminvetory.onrender.com
+      - key: LOG_CHANNEL
+        value: stack
+      - key: LOG_LEVEL
+        value: error
+      - key: SESSION_DRIVER
+        value: database
+      - key: SESSION_LIFETIME
+        value: "120"
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        fromDatabase:
-          name: inventariodb
-          property: host
+        value: aws-0-us-west-2.pooler.supabase.com
       - key: DB_PORT
         value: "5432"
       - key: DB_DATABASE
-        fromDatabase:
-          name: inventariodb
-          property: database
+        value: postgres
       - key: DB_USERNAME
-        fromDatabase:
-          name: inventariodb
-          property: user
+        value: postgres.fsmngukibgmlymnflodk
       - key: DB_PASSWORD
-        fromDatabase:
-          name: inventariodb
-          property: password
-
-databases:
-  - name: inventariodb
-    plan: free
-
+        sync: false

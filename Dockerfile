@@ -34,8 +34,14 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
+# Copiar y dar permisos al script de inicio
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Puerto
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+# Usar el script de inicio
+CMD ["docker-entrypoint.sh"]
+
 
