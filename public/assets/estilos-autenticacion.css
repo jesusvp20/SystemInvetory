@@ -90,3 +90,31 @@
 .btn-toggle-password i {
     font-size: 1.1rem;
 }
+
+/* Ajustes visuales unificados para autenticación */
+.auth-section {
+    background-color: #f7f9fc;
+}
+
+.auth-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    padding: 24px;
+}
+
+.auth-card .form-label {
+    font-weight: 600;
+}
+
+.auth-card .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25);
+}
+
+.auth-footer {
+    padding: 0.75rem 1rem !important;
+}
+
+@media (max-width: 767.98px) {
+    .auth-card { padding: 16px; }
+}

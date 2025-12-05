@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/estilos-autenticacion.css') }}" />
 </head>
 <body>
-<section class="min-vh-100">
+<section class="min-vh-100 auth-section">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <!-- Imagen: oculta en móviles, visible en md+ -->
@@ -21,7 +21,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" class="img-fluid" style="max-width: 300px;" alt="Sample image">
       </div>
       <!-- Formulario: ancho completo en móviles -->
-      <div class="col-12 col-md-7 col-lg-6 col-xl-4 px-4 px-md-3 py-4 py-md-0">
+      <div class="col-12 col-md-7 col-lg-6 col-xl-4 px-4 px-md-3 py-4 py-md-0 auth-card">
         <h2 class="mb-4 text-center text-md-start">Crear Cuenta</h2>
         
         @if(session('success'))
@@ -95,7 +95,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+  <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary auth-footer">
     <div class="text-white mb-3 mb-md-0">
       Copyright © 2025. Todos los derechos reservados.
     </div>

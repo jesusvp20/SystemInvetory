@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/estilos-autenticacion.css') }}" />
 </head>
 <body>
-<section class="min-vh-100">
+<section class="min-vh-100 auth-section">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <!-- Logo: más pequeño en móviles -->
@@ -33,7 +33,7 @@
         <h4 class="mt-2 text-primary fw-bold">Sistema de Inventario</h4>
       </div>
       <!-- Formulario -->
-      <div class="col-12 col-md-7 col-lg-6 col-xl-4 px-4 px-md-3">
+      <div class="col-12 col-md-7 col-lg-6 col-xl-4 px-4 px-md-3 auth-card">
         @if(session('success'))
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -85,7 +85,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+  <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary auth-footer">
     <div class="text-white mb-3 mb-md-0">
       Copyright © 2025. Todos los derechos reservados.
     </div>
