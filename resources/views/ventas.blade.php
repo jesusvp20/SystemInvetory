@@ -261,7 +261,7 @@ document.getElementById('venta-form').addEventListener('submit', async function(
             resetForm();
             alert('Venta registrada correctamente');
         } else {
-            alert(data.message || 'Error al registrar la venta');
+            alert((data.message || 'Error al registrar la venta') + (data.error ? ('\nDetalle: ' + data.error) : ''));
         }
     } catch(error){
         console.error('Error al registrar la venta:', error);

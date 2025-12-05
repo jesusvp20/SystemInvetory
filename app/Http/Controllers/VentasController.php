@@ -43,27 +43,41 @@ class VentasController extends Controller
         // Validaciones según esquema SQL
         $request->validate([
             'cliente' => 'required|integer|exists:clientes,id',
-            'total' => 'required|numeric|min:0|max:999999999999',
             'productos' => 'required|array|min:1',
             'cantidades' => 'required|array|min:1',
         ], [
             'cliente.required' => 'Debe seleccionar un cliente',
             'cliente.exists' => 'El cliente seleccionado no existe',
-            'total.required' => 'El total es requerido',
-            'total.max' => 'El total no puede exceder 999.999.999.999',
             'productos.required' => 'Debe seleccionar al menos un producto',
             'cantidades.required' => 'Debe especificar las cantidades',
         ]);
 
         try {
             $userId = Auth::id();
-            
-            // Limpiar formato de precio
-            $total = str_replace('.', '', $request->total);
-            $total = str_replace(',', '.', $total);
-            
-            // Insertar venta con user_id
-            // Segundo parámetro 'id_venta' indica el nombre de la columna ID en PostgreSQL
+            DB::beginTransaction();
+
+            $productos  = $request->productos;
+            $cantidades = $request->cantidades;
+            $total = 0;
+
+            foreach ($productos as $index => $productoId) {
+                $producto = DB::table('producto')
+                    ->whereRaw('\"IdProducto\" = ?', [$productoId])
+                    ->where('user_id', $userId)
+                    ->first();
+
+                if (!$producto) {
+                    throw new \Exception('Producto inválido o no pertenece al usuario');
+                }
+
+                $cantidad = (int)($cantidades[$index] ?? 0);
+                if ($cantidad <= 0) {
+                    throw new \Exception('La cantidad debe ser mayor a 0');
+                }
+
+                $total += ((float)$producto->precio) * $cantidad;
+            }
+
             $ventaId = DB::table('ventas')->insertGetId([
                 'id_cliente'  => $request->cliente,
                 'fecha_venta' => now(),
@@ -71,25 +85,21 @@ class VentasController extends Controller
                 'user_id'     => $userId,
             ], 'id_venta');
 
-            // Insertar detalles
-            $productos  = $request->productos;
-            $cantidades = $request->cantidades;
-
             foreach ($productos as $index => $productoId) {
                 $producto = DB::table('producto')
-                    ->whereRaw('"IdProducto" = ?', [$productoId])
+                    ->whereRaw('\"IdProducto\" = ?', [$productoId])
                     ->where('user_id', $userId)
                     ->first();
 
-                if ($producto) {
-                    DB::table('detalle_ventas')->insert([
-                        'id_venta'    => $ventaId,
-                        'id_producto' => $productoId,
-                        'cantidad'    => $cantidades[$index],
-                        'precio'      => $producto->precio, 
-                    ]);
-                }
+                DB::table('detalle_ventas')->insert([
+                    'id_venta'    => $ventaId,
+                    'id_producto' => $productoId,
+                    'cantidad'    => (int)$cantidades[$index],
+                    'precio'      => (float)$producto->precio, 
+                ]);
             }
+
+            DB::commit();
 
             // Recuperar venta para mostrar
             $venta = DB::selectOne('
@@ -105,6 +115,7 @@ class VentasController extends Controller
 
             return response()->json(['success' => true, 'venta' => $venta]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'success' => false,
                 'message' => 'Error al registrar la venta',
