@@ -17,7 +17,7 @@
             </button>
             <a class="navbar-brand d-none d-sm-block" href="#">Dashboard Principal</a>
             <a class="navbar-brand d-sm-none" href="#">Dashboard</a>
-            <button onclick="confirmLogout()" class="btn btn-danger btn-sm ms-auto">Salir</button>
+            <button onclick="confirmLogout()" class="btn btn-danger btn-sm ms-auto"><i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión</button>
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Gestionar Inventario</h5>
