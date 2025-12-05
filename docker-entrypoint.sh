@@ -12,9 +12,9 @@ done
 
 echo "Base de datos disponible!"
 
-# Ejecutar migraciones
+# Ejecutar migraciones (no fallar si ya existen las tablas)
 echo "Ejecutando migraciones..."
-php artisan migrate --force
+php artisan migrate --force || echo "Migraciones ya aplicadas o error ignorado"
 
 # Limpiar y optimizar caché
 echo "Optimizando aplicación..."
