@@ -21,17 +21,17 @@ class DashboardController extends Controller
         
         // Contar solo los datos del usuario autenticado
         $totalProductos = DB::table('producto')
-            ->where('estado', 1)
+            ->where('estado', true)
             ->where('user_id', $userId)
             ->count();
             
         $totalProveedores = DB::table('proveedores')
-            ->where('estado', 1)
+            ->where('estado', true)
             ->where('user_id', $userId)
             ->count();
             
         $totalClientes = DB::table('clientes')
-            ->where('estado', 1)
+            ->where('estado', true)
             ->where('user_id', $userId)
             ->count();
             
