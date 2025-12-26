@@ -37,6 +37,11 @@ Route::get('/test-db', function () {
     }
 });
 
+// Ruta ligera para evitar que Render se duerma (Health Check)
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok', 'timestamp' => now()]);
+});
+
 // Rutas para recuperar contraseña (sin autenticación)
 Route::get('/recuperar-contrasena', [RecuperarContrasenaController::class, 'mostrarFormularioEmail'])->name('recuperar.email');
 Route::post('/recuperar-contrasena/verificar', [RecuperarContrasenaController::class, 'verificarEmail'])->name('recuperar.verificar');
