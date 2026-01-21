@@ -1,0 +1,13 @@
+name: Keepalive Render
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /up endpoint
+        run: |
+          curl -sS --max-time 8 -H "Cache-Control: no-cache" https://systeminventory.onrender.com/up || true
