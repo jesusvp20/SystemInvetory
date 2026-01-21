@@ -9,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('estilos/ventas.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/loading_effects.css') }}">
 </head>
 <body>
 
@@ -232,6 +233,12 @@ document.getElementById('venta-form').addEventListener('submit', async function(
     const form = e.target;
     const formData = new FormData(form);
     const url = form.action;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    // Si loaderUtils existe (del layout), lo usamos
+    const loader = window.loaderUtils || { show: () => {}, hide: () => {} };
+    loader.show(submitBtn);
+
     try{
         const response = await fetch(url, { method:'POST', body: formData, headers:{'X-Requested-With':'XMLHttpRequest'} });
         const data = await response.json();
@@ -266,6 +273,8 @@ document.getElementById('venta-form').addEventListener('submit', async function(
     } catch(error){
         console.error('Error al registrar la venta:', error);
         alert('Hubo un error al registrar la venta. Intenta nuevamente.');
+    } finally {
+        loader.hide(submitBtn);
     }
 });
 </script>

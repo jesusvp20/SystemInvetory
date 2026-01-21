@@ -15,8 +15,14 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/loading_effects.css') }}">
 </head>
 <body>
+    <!-- Global Loader Overlay -->
+    <div id="global-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -76,5 +82,42 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        // Mostrar loader global en envíos de formularios estándar (no AJAX)
+        document.addEventListener('submit', function(e) {
+            // Si el formulario no tiene 'data-ajax', mostramos el loader global
+            if (!e.target.hasAttribute('data-ajax') && !e.target.id.includes('venta-form')) {
+                document.getElementById('global-loader').classList.add('show');
+            }
+        });
+
+        // Utilidad para manejar estados de carga en botones
+        window.loaderUtils = {
+            show: function(button) {
+                if (button) {
+                    button.classList.add('btn-loading');
+                    button.disabled = true;
+                }
+            },
+            hide: function(button) {
+                if (button) {
+                    button.classList.remove('btn-loading');
+                    button.disabled = false;
+                }
+            },
+            showGlobal: function() {
+                document.getElementById('global-loader').classList.add('show');
+            },
+            hideGlobal: function() {
+                document.getElementById('global-loader').classList.remove('show');
+            }
+        };
+
+        // Ocultar loader global al cargar la página (por si acaso quedó activo)
+        window.addEventListener('load', function() {
+            window.loaderUtils.hideGlobal();
+        });
+    </script>
 </body>
 </html>
