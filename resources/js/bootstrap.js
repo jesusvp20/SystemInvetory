@@ -59,7 +59,7 @@ if (typeof window !== 'undefined') {
     } else {
         window.addEventListener('DOMContentLoaded', ping);
     }
-    setInterval(ping, 12 * 60 * 1000);
+    setInterval(ping, 8 * 60 * 1000);
 }
 
 /**
