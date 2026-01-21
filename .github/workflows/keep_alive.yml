@@ -1,0 +1,19 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    # Se ejecuta cada 14 minutos (Render suspende a los 15 min de inactividad)
+    - cron: '*/14 * * * *'
+  workflow_dispatch: # Permite ejecutarlo manualmente para probar
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render App
+        run: |
+          # Reemplaza la URL a continuación con la URL real de tu aplicación en Render
+          # Por ejemplo: https://tu-app-inventario.onrender.com
+          URL="https://systeminvetory.onrender.com"
+          curl -s $URL > /dev/null
+          echo "Ping enviado a $URL a las $(date)"
